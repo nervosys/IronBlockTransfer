@@ -197,11 +197,11 @@ impl Theme {
         visuals.hyperlink_color = self.accent;
 
         // Window styling
-        visuals.window_rounding = egui::Rounding::same(8.0);
+        visuals.window_corner_radius = egui::CornerRadius::same(8);
         visuals.window_shadow = egui::epaint::Shadow {
-            offset: egui::vec2(0.0, 4.0),
-            blur: 16.0,
-            spread: 2.0,
+            offset: [0, 4],
+            blur: 16,
+            spread: 2,
             color: egui::Color32::from_black_alpha(120),
         };
         visuals.window_stroke = egui::Stroke::new(1.0_f32, self.border);
@@ -210,55 +210,55 @@ impl Theme {
         visuals.widgets.inactive.bg_fill = self.bg_card;
         visuals.widgets.inactive.bg_stroke = egui::Stroke::new(1.0_f32, self.border);
         visuals.widgets.inactive.fg_stroke = egui::Stroke::new(1.0_f32, self.text_secondary);
-        visuals.widgets.inactive.rounding = egui::Rounding::same(6.0);
+        visuals.widgets.inactive.corner_radius = egui::CornerRadius::same(6);
 
         // Widget styling — hovered
         visuals.widgets.hovered.bg_fill = self.bg_card_hover;
         visuals.widgets.hovered.bg_stroke = egui::Stroke::new(1.5_f32, self.accent_dim);
         visuals.widgets.hovered.fg_stroke = egui::Stroke::new(1.0_f32, self.text_primary);
-        visuals.widgets.hovered.rounding = egui::Rounding::same(6.0);
+        visuals.widgets.hovered.corner_radius = egui::CornerRadius::same(6);
 
         // Widget styling — active (pressed)
         visuals.widgets.active.bg_fill = self.accent.linear_multiply(0.2);
         visuals.widgets.active.bg_stroke = egui::Stroke::new(2.0_f32, self.accent);
         visuals.widgets.active.fg_stroke = egui::Stroke::new(1.0_f32, self.accent);
-        visuals.widgets.active.rounding = egui::Rounding::same(6.0);
+        visuals.widgets.active.corner_radius = egui::CornerRadius::same(6);
 
         // Widget styling — open (popups/menus)
         visuals.widgets.open.bg_fill = self.bg_card;
         visuals.widgets.open.bg_stroke = egui::Stroke::new(1.0_f32, self.accent_dim);
         visuals.widgets.open.fg_stroke = egui::Stroke::new(1.0_f32, self.text_primary);
-        visuals.widgets.open.rounding = egui::Rounding::same(6.0);
+        visuals.widgets.open.corner_radius = egui::CornerRadius::same(6);
 
         // Non-interactive elements
         visuals.widgets.noninteractive.bg_fill = self.bg_panel;
         visuals.widgets.noninteractive.bg_stroke = egui::Stroke::new(1.0_f32, self.border);
         visuals.widgets.noninteractive.fg_stroke = egui::Stroke::new(1.0_f32, self.text_secondary);
-        visuals.widgets.noninteractive.rounding = egui::Rounding::same(6.0);
+        visuals.widgets.noninteractive.corner_radius = egui::CornerRadius::same(6);
 
         // Separator
         visuals.widgets.noninteractive.bg_stroke = egui::Stroke::new(0.5_f32, self.border);
 
         // Popup shadow
         visuals.popup_shadow = egui::epaint::Shadow {
-            offset: egui::vec2(0.0, 6.0),
-            blur: 20.0,
-            spread: 4.0,
+            offset: [0, 6],
+            blur: 20,
+            spread: 4,
             color: egui::Color32::from_black_alpha(140),
         };
 
         // Menu rounding
-        visuals.menu_rounding = egui::Rounding::same(8.0);
+        visuals.menu_corner_radius = egui::CornerRadius::same(8);
 
         ctx.set_visuals(visuals);
 
         // Typography — configure fonts
-        let mut style = (*ctx.style()).clone();
+        let mut style = (*ctx.global_style()).clone();
         style.spacing.item_spacing = egui::vec2(8.0, 6.0);
         style.spacing.button_padding = egui::vec2(12.0, 6.0);
-        style.spacing.window_margin = egui::Margin::same(16.0);
+        style.spacing.window_margin = egui::Margin::same(16);
         style.visuals.striped = true;
-        ctx.set_style(style);
+        ctx.set_global_style(style);
     }
 }
 
@@ -315,7 +315,9 @@ impl Default for IbtApp {
 }
 
 impl eframe::App for IbtApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        let ctx = &ui.ctx().clone();
+
         // Apply theme on first frame and whenever it changes
         if self.first_frame {
             self.theme.apply(ctx);
@@ -326,16 +328,21 @@ impl eframe::App for IbtApp {
         if !ctx.input(|i| i.raw.hovered_files.is_empty()) {
             let painter = ctx.layer_painter(egui::LayerId::new(
                 egui::Order::Foreground,
-                egui::Id::new("drop_overlay"),
+                egui::Id::unique("drop_overlay"),
             ));
-            let screen = ctx.screen_rect();
+            let screen = ctx.content_rect();
             painter.rect_filled(screen, 0.0, egui::Color32::from_black_alpha(180));
 
             // Pulsing border effect
             let t = ctx.input(|i| i.time) as f32;
             let pulse = ((t * 3.0).sin() * 0.3 + 0.7).clamp(0.4, 1.0);
             let glow = self.theme.accent.linear_multiply(pulse);
-            painter.rect_stroke(screen.shrink(8.0), 12.0, egui::Stroke::new(3.0_f32, glow));
+            painter.rect_stroke(
+                screen.shrink(8.0),
+                12.0,
+                egui::Stroke::new(3.0_f32, glow),
+                egui::StrokeKind::Middle,
+            );
 
             // Drop icon and text
             painter.text(
@@ -358,34 +365,33 @@ impl eframe::App for IbtApp {
         let dropped_files: Vec<_> = ctx.input(|i| i.raw.dropped_files.clone());
         if !dropped_files.is_empty() {
             for file in &dropped_files {
-                if let Some(ref path) = file.path {
-                    let ext = path
-                        .extension()
-                        .and_then(|e| e.to_str())
-                        .unwrap_or("")
-                        .to_lowercase();
-                    let valid_extensions = [
-                        "iso", "img", "raw", "bin", "dmg", "vhd", "vhdx", "vmdk", "qcow2", "wim",
-                        "ffu", "gz", "bz2", "xz", "zst", "zip", "dd", "dsk",
-                    ];
-                    if valid_extensions.contains(&ext.as_str()) || path.is_file() {
-                        self.source_path = path.to_string_lossy().to_string();
-                        self.status = format!("✓ Loaded: {}", self.source_path);
-                        break;
-                    }
+                let path = file.path();
+                let ext = path
+                    .extension()
+                    .and_then(|e| e.to_str())
+                    .unwrap_or("")
+                    .to_lowercase();
+                let valid_extensions = [
+                    "iso", "img", "raw", "bin", "dmg", "vhd", "vhdx", "vmdk", "qcow2", "wim",
+                    "ffu", "gz", "bz2", "xz", "zst", "zip", "dd", "dsk",
+                ];
+                if valid_extensions.contains(&ext.as_str()) || path.is_file() {
+                    self.source_path = path.to_string_lossy().to_string();
+                    self.status = format!("✓ Loaded: {}", self.source_path);
+                    break;
                 }
             }
         }
 
         // ── Top panel — branding bar ───────────────────────────────────────
-        egui::TopBottomPanel::top("top_bar")
+        egui::Panel::top("top_bar")
             .frame(
                 egui::Frame::default()
                     .fill(self.theme.bg_deep)
-                    .inner_margin(egui::Margin::symmetric(16.0, 6.0))
+                    .inner_margin(egui::Margin::symmetric(16, 6))
                     .stroke(egui::Stroke::new(1.0_f32, self.theme.border)),
             )
-            .show(ctx, |ui| {
+            .show(ui, |ui| {
                 ui.horizontal(|ui| {
                     // Logo / branding
                     ui.add_space(2.0);
@@ -415,7 +421,7 @@ impl eframe::App for IbtApp {
                                         self.theme_preset = preset;
                                         self.theme = preset.build();
                                         self.theme.apply(ctx);
-                                        ui.close_menu();
+                                        ui.close();
                                     }
                                 }
                             },
@@ -430,7 +436,7 @@ impl eframe::App for IbtApp {
                                 .size(12.0),
                             |ui| {
                                 if ui.button("About").clicked() {
-                                    ui.close_menu();
+                                    ui.close();
                                 }
                             },
                         );
@@ -466,7 +472,7 @@ impl eframe::App for IbtApp {
                                         self.source_path = path.to_string_lossy().to_string();
                                         self.status = format!("✓ Opened: {}", self.source_path);
                                     }
-                                    ui.close_menu();
+                                    ui.close();
                                 }
                                 ui.separator();
                                 if ui.button("✕ Quit").clicked() {
@@ -479,14 +485,14 @@ impl eframe::App for IbtApp {
             });
 
         // ── Bottom panel — status bar ──────────────────────────────────────
-        egui::TopBottomPanel::bottom("status_bar")
+        egui::Panel::bottom("status_bar")
             .frame(
                 egui::Frame::default()
                     .fill(self.theme.bg_deep)
-                    .inner_margin(egui::Margin::symmetric(16.0, 4.0))
+                    .inner_margin(egui::Margin::symmetric(16, 4))
                     .stroke(egui::Stroke::new(1.0_f32, self.theme.border)),
             )
-            .show(ctx, |ui| {
+            .show(ui, |ui| {
                 ui.horizontal(|ui| {
                     // Status indicator dot
                     let dot_color = match &self.state {
@@ -517,9 +523,9 @@ impl eframe::App for IbtApp {
             .frame(
                 egui::Frame::default()
                     .fill(self.theme.bg_panel)
-                    .inner_margin(egui::Margin::same(20.0)),
+                    .inner_margin(egui::Margin::same(20)),
             )
-            .show(ctx, |ui| match &self.state.clone() {
+            .show(ui, |ui| match &self.state.clone() {
                 GuiState::Idle => self.render_main_form(ui, ctx),
                 GuiState::Writing | GuiState::Verifying => self.render_progress(ui, ctx),
                 GuiState::Complete => self.render_complete(ui),
@@ -544,8 +550,8 @@ fn card_frame(theme: &Theme, glow_accent: bool) -> egui::Frame {
     };
     egui::Frame::default()
         .fill(theme.bg_card)
-        .rounding(egui::Rounding::same(8.0))
-        .inner_margin(egui::Margin::same(14.0))
+        .corner_radius(egui::CornerRadius::same(8))
+        .inner_margin(egui::Margin::same(14))
         .stroke(egui::Stroke::new(1.0_f32, stroke_color))
 }
 
@@ -596,9 +602,10 @@ impl IbtApp {
                 };
                 ui.painter().rect(
                     rect,
-                    egui::Rounding::same(6.0),
+                    egui::CornerRadius::same(6),
                     bg,
                     egui::Stroke::new(1.0_f32, border_color),
+                    egui::StrokeKind::Middle,
                 );
                 ui.painter().text(
                     egui::pos2(rect.center().x, rect.center().y - 10.0),
@@ -662,7 +669,7 @@ impl IbtApp {
                             .color(self.theme.accent)
                             .strong(),
                     )
-                    .rounding(egui::Rounding::same(6.0));
+                    .corner_radius(egui::CornerRadius::same(6));
 
                     if ui
                         .add_sized(egui::vec2(btn_width, 0.0), browse_btn)
@@ -750,7 +757,7 @@ impl IbtApp {
                             .color(self.theme.secondary)
                             .size(12.0),
                     )
-                    .rounding(egui::Rounding::same(6.0));
+                    .corner_radius(egui::CornerRadius::same(6));
 
                     if ui.add(refresh_btn).clicked() {
                         let enumerator = crate::core::device::create_enumerator();
@@ -840,8 +847,8 @@ impl IbtApp {
 
                                 let frame = egui::Frame::default()
                                     .fill(card_bg)
-                                    .rounding(egui::Rounding::same(6.0))
-                                    .inner_margin(egui::Margin::symmetric(10.0, 6.0))
+                                    .corner_radius(egui::CornerRadius::same(6))
+                                    .inner_margin(egui::Margin::symmetric(10, 6))
                                     .stroke(egui::Stroke::new(
                                         if selected { 1.5 } else { 0.5_f32 },
                                         card_border,
@@ -994,7 +1001,7 @@ impl IbtApp {
             } else {
                 self.theme.bg_card
             })
-            .rounding(egui::Rounding::same(8.0))
+            .corner_radius(egui::CornerRadius::same(8))
             .stroke(egui::Stroke::new(
                 if can_write { 1.5 } else { 0.5_f32 },
                 btn_color,
@@ -1059,6 +1066,7 @@ impl IbtApp {
             bar_rect,
             bar_height / 2.0,
             egui::Stroke::new(1.0_f32, self.theme.border),
+            egui::StrokeKind::Middle,
         );
 
         // Filled portion
@@ -1166,7 +1174,7 @@ impl IbtApp {
                     .color(self.theme.error)
                     .size(13.0),
             )
-            .rounding(egui::Rounding::same(6.0))
+            .corner_radius(egui::CornerRadius::same(6))
             .stroke(egui::Stroke::new(
                 1.0_f32,
                 self.theme.error.linear_multiply(0.5),
@@ -1213,7 +1221,7 @@ impl IbtApp {
                     .size(14.0)
                     .strong(),
             )
-            .rounding(egui::Rounding::same(8.0))
+            .corner_radius(egui::CornerRadius::same(8))
             .stroke(egui::Stroke::new(1.0_f32, self.theme.accent_dim))
             .min_size(egui::vec2(180.0, 38.0));
 
@@ -1257,7 +1265,7 @@ impl IbtApp {
                     .size(14.0)
                     .strong(),
             )
-            .rounding(egui::Rounding::same(8.0))
+            .corner_radius(egui::CornerRadius::same(8))
             .stroke(egui::Stroke::new(1.0_f32, self.theme.accent_dim))
             .min_size(egui::vec2(160.0, 38.0));
 
