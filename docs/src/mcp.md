@@ -1,15 +1,15 @@
 # MCP Server
 
-`abt mcp` starts a [Model Context Protocol](https://modelcontextprotocol.io/) server for direct AI agent integration.
+`ibt mcp` starts a [Model Context Protocol](https://modelcontextprotocol.io/) server for direct AI agent integration.
 
 ## Starting the Server
 
 ```bash
 # Persistent server (reads JSON-RPC messages from stdin)
-abt mcp
+ibt mcp
 
 # Single-request mode (process one message and exit)
-abt mcp --oneshot
+ibt mcp --oneshot
 ```
 
 ## Protocol
@@ -30,4 +30,4 @@ abt mcp --oneshot
 
 ## Integration with AI Frameworks
 
-The MCP server works with any MCP-compatible AI framework. The agent sends tool invocation requests as JSON-RPC messages to `abt`'s stdin, and receives structured responses on stdout.
+The MCP server works with any MCP-compatible AI framework. The agent sends tool invocation requests as JSON-RPC messages to `ibt`'s stdin, and receives structured responses on stdout.

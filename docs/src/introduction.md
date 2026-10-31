@@ -1,10 +1,10 @@
-# AgenticBlockTransfer (abt)
+# IronBlockTransfer (ibt)
 
 **Agentic-first CLI successor to `dd`. Human-first GUI/TUI successor to balenaEtcher, Ventoy, Rufus, Fedora Media Writer, and rpi-imager.**
 
-## What is abt?
+## What is ibt?
 
-`abt` is a cross-platform disk image writer that combines the power of `dd` with the safety of modern GUI tools. It's designed to be operated by both humans and AI agents.
+`ibt` is a cross-platform disk image writer that combines the power of `dd` with the safety of modern GUI tools. It's designed to be operated by both humans and AI agents.
 
 ### For Humans
 
@@ -14,8 +14,8 @@
 
 ### For AI Agents
 
-- **JSON-LD ontology** — machine-readable capability schema via `abt ontology`
-- **MCP server** — Model Context Protocol server for direct AI integration via `abt mcp`
+- **JSON-LD ontology** — machine-readable capability schema via `ibt ontology`
+- **MCP server** — Model Context Protocol server for direct AI integration via `ibt mcp`
 - **Structured output** — JSON output mode for all commands
 - **Safety guards** — pre-flight checks, dry-run mode, device fingerprints, structured exit codes
 
@@ -30,4 +30,4 @@
 
 ## Heritage
 
-`abt` traces its lineage to IBM's **BLock Transfer** (BLT) — a mainframe utility for moving data between block-addressable devices. When UNIX adapted the concept, it became **Dataset Definition** (`dd`). The name **AgenticBlockTransfer** is a direct nod: *Block Transfer* from IBM's BLT, *Agentic* because the tool is built to be operated by both humans and autonomous AI systems.
+`ibt` traces its lineage to IBM's **BLock Transfer** (BLT) — a mainframe utility for moving data between block-addressable devices. When UNIX adapted the concept, it became **Dataset Definition** (`dd`). The name **IronBlockTransfer** is a direct nod: *Block Transfer* from IBM's BLT, *Agentic* because the tool is built to be operated by both humans and autonomous AI systems.

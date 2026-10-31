@@ -65,7 +65,7 @@ pub async fn execute(opts: FleetOpts) -> Result<()> {
             // In a real implementation, this would connect to a running fleet session
             println!("No fleet write session is currently active.");
             println!(
-                "Start one with: abt fleet write --source <image> --target <dev1> --target <dev2>"
+                "Start one with: ibt fleet write --source <image> --target <dev1> --target <dev2>"
             );
         }
         other => {

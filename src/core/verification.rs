@@ -1,8 +1,8 @@
 //! Formal Verification Module — Safety Proofs and Invariant Enforcement
 //!
 //! This module provides compile-time and runtime verification of safety-critical
-//! invariants for the AgenticBlockTransfer (abt) system. As a safety-critical
-//! tool that writes directly to block devices, abt must guarantee:
+//! invariants for the IronBlockTransfer (ibt) system. As a safety-critical
+//! tool that writes directly to block devices, ibt must guarantee:
 //!
 //! # Safety Invariants (Formally Verified)
 //!
@@ -910,46 +910,46 @@ mod tests {
 
     #[test]
     fn si7_all_errors_map_to_exit_codes() {
-        use error::AbtError;
+        use error::IbtError;
 
-        let errors: Vec<AbtError> = vec![
-            AbtError::Io(std::io::Error::new(std::io::ErrorKind::NotFound, "test")),
-            AbtError::DeviceNotFound("x".into()),
-            AbtError::SystemDrive("x".into()),
-            AbtError::ReadOnly("x".into()),
-            AbtError::ImageNotFound("x".into()),
-            AbtError::UnsupportedFormat("x".into()),
-            AbtError::ImageTooLarge {
+        let errors: Vec<IbtError> = vec![
+            IbtError::Io(std::io::Error::new(std::io::ErrorKind::NotFound, "test")),
+            IbtError::DeviceNotFound("x".into()),
+            IbtError::SystemDrive("x".into()),
+            IbtError::ReadOnly("x".into()),
+            IbtError::ImageNotFound("x".into()),
+            IbtError::UnsupportedFormat("x".into()),
+            IbtError::ImageTooLarge {
                 image_size: 1,
                 device_size: 0,
             },
-            AbtError::VerificationFailed {
+            IbtError::VerificationFailed {
                 offset: 0,
                 expected: 0,
                 actual: 1,
             },
-            AbtError::ChecksumMismatch {
+            IbtError::ChecksumMismatch {
                 expected: "a".into(),
                 actual: "b".into(),
             },
-            AbtError::Aborted,
-            AbtError::PermissionDenied,
-            AbtError::Decompression("x".into()),
-            AbtError::FormatError("x".into()),
-            AbtError::PlatformError("x".into()),
-            AbtError::ConfigError("x".into()),
-            AbtError::Timeout { elapsed_secs: 1.0 },
-            AbtError::CancelledByUser,
-            AbtError::BackupFailed("x".into()),
-            AbtError::TokenMismatch {
+            IbtError::Aborted,
+            IbtError::PermissionDenied,
+            IbtError::Decompression("x".into()),
+            IbtError::FormatError("x".into()),
+            IbtError::PlatformError("x".into()),
+            IbtError::ConfigError("x".into()),
+            IbtError::Timeout { elapsed_secs: 1.0 },
+            IbtError::CancelledByUser,
+            IbtError::BackupFailed("x".into()),
+            IbtError::TokenMismatch {
                 expected: "a".into(),
                 actual: "b".into(),
             },
-            AbtError::RetryExhausted {
+            IbtError::RetryExhausted {
                 retries: 3,
                 msg: "x".into(),
             },
-            AbtError::DeviceChanged("x".into()),
+            IbtError::DeviceChanged("x".into()),
         ];
 
         for err in errors {

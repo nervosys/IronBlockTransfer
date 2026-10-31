@@ -137,7 +137,7 @@ pub async fn fetch_mirror_list(list_url: &str) -> Result<MirrorList> {
     info!("Fetching mirror list from: {}", list_url);
 
     let client = reqwest::Client::builder()
-        .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
         .timeout(Duration::from_secs(30))
         .build()?;
 

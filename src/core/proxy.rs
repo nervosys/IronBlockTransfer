@@ -1,4 +1,4 @@
-// Network proxy configuration for abt.
+// Network proxy configuration for ibt.
 //
 // Inspired by rpi-imager's CurlNetworkConfig: centralized proxy configuration
 // that all HTTP clients (download, update check, catalog fetch, mirror probe)
@@ -6,7 +6,7 @@
 // detection from environment variables or config files.
 //
 // Corporate and education networks often require proxies — without this,
-// abt's download features silently fail in those environments.
+// ibt's download features silently fail in those environments.
 
 #![allow(dead_code)]
 
@@ -205,7 +205,7 @@ impl NetworkConfig {
         Self {
             inner: Arc::new(RwLock::new(NetworkConfigInner {
                 proxy,
-                user_agent: format!("abt/{}", env!("CARGO_PKG_VERSION")),
+                user_agent: format!("ibt/{}", env!("CARGO_PKG_VERSION")),
                 max_concurrent_downloads: 4,
                 ca_bundle_path: None,
             })),
@@ -502,7 +502,7 @@ mod tests {
     fn test_network_config_default() {
         let config = NetworkConfig::new();
         assert_eq!(config.max_concurrent(), 4);
-        assert!(config.user_agent().starts_with("abt/"));
+        assert!(config.user_agent().starts_with("ibt/"));
     }
 
     #[test]

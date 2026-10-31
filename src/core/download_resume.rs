@@ -79,7 +79,7 @@ pub struct DownloadResult {
 /// Build a shared reqwest client with sensible defaults.
 fn build_client() -> Result<reqwest::Client> {
     Ok(reqwest::Client::builder()
-        .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
         .timeout(std::time::Duration::from_secs(7200))
         .connect_timeout(std::time::Duration::from_secs(30))
         .build()?)
@@ -476,16 +476,16 @@ mod tests {
 
     #[test]
     fn test_part_path() {
-        let p = PathBuf::from("/tmp/abt/ubuntu.iso");
-        assert_eq!(part_path(&p), PathBuf::from("/tmp/abt/ubuntu.iso.part"));
+        let p = PathBuf::from("/tmp/ibt/ubuntu.iso");
+        assert_eq!(part_path(&p), PathBuf::from("/tmp/ibt/ubuntu.iso.part"));
     }
 
     #[test]
     fn test_meta_path() {
-        let p = PathBuf::from("/tmp/abt/ubuntu.iso");
+        let p = PathBuf::from("/tmp/ibt/ubuntu.iso");
         assert_eq!(
             meta_path(&p),
-            PathBuf::from("/tmp/abt/ubuntu.iso.meta.json")
+            PathBuf::from("/tmp/ibt/ubuntu.iso.meta.json")
         );
     }
 

@@ -1,11 +1,11 @@
 [package]
-name = "abt"
-version = "1.7.1"
+name = "ibt"
+version = "2.0.0"
 edition = "2021"
 authors = ["nervosys"]
-description = "AgenticBlockTransfer — agentic-first CLI successor to dd, human-first GUI/TUI successor to balenaEtcher, Ventoy, Rufus, Fedora Media Writer, and rpi-imager"
+description = "IronBlockTransfer — agentic-first CLI successor to dd, human-first GUI/TUI successor to balenaEtcher, Ventoy, Rufus, Fedora Media Writer, and rpi-imager"
 license = "AGPL-3.0-only"
-repository = "https://github.com/nervosys/AgenticBlockTransfer"
+repository = "https://github.com/nervosys/IronBlockTransfer"
 keywords = ["disk", "flash", "image", "usb", "block-transfer"]
 categories = ["command-line-utilities", "hardware-support", "filesystem"]
 
@@ -16,7 +16,7 @@ tui = ["dep:ratatui", "dep:crossterm"]
 gui = ["dep:eframe", "dep:egui", "dep:rfd"]
 
 [[bin]]
-name = "abt"
+name = "ibt"
 path = "src/main.rs"
 
 [dependencies]

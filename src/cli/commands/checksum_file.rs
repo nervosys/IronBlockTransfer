@@ -1,4 +1,4 @@
-// CLI command: abt checksum-file — parse and verify against checksum files.
+// CLI command: ibt checksum-file — parse and verify against checksum files.
 
 use anyhow::Result;
 use log::info;

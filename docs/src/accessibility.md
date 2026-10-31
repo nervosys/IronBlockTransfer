@@ -1,6 +1,6 @@
 # Accessibility
 
-`abt` includes comprehensive accessibility support for TUI and GUI modes.
+`ibt` includes comprehensive accessibility support for TUI and GUI modes.
 
 ## Features
 

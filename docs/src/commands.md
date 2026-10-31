@@ -1,6 +1,6 @@
 # Commands
 
-`abt` provides 19 commands covering disk imaging, device management, AI integration, and more.
+`ibt` provides 19 commands covering disk imaging, device management, AI integration, and more.
 
 | Command       | Aliases                  | Description                                |
 | ------------- | ------------------------ | ------------------------------------------ |
@@ -36,7 +36,7 @@
 ## write
 
 ```bash
-abt write -i <source> -o <device> [options]
+ibt write -i <source> -o <device> [options]
 ```
 
 | Option               | Description                              |
@@ -55,7 +55,7 @@ abt write -i <source> -o <device> [options]
 ## clone
 
 ```bash
-abt clone -i <source-device> -o <target-device> [options]
+ibt clone -i <source-device> -o <target-device> [options]
 ```
 
 Block-level device-to-device copy with inline hashing, sparse optimization, and post-clone verification.
@@ -63,7 +63,7 @@ Block-level device-to-device copy with inline hashing, sparse optimization, and 
 ## erase
 
 ```bash
-abt erase <device> [options]
+ibt erase <device> [options]
 ```
 
 | Option     | Description                                        |
@@ -74,7 +74,7 @@ abt erase <device> [options]
 ## multiboot
 
 ```bash
-abt multiboot <action> [options]
+ibt multiboot <action> [options]
 ```
 
 | Action   | Description                         |

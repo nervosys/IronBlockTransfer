@@ -99,7 +99,7 @@ export const IntroScene: React.FC = () => {
           textShadow: glowText(theme.accent, 8),
         }}
       >
-        ABT
+        IBT
       </div>
 
       {/* Subtitle */}
@@ -113,7 +113,7 @@ export const IntroScene: React.FC = () => {
           marginTop: 8,
         }}
       >
-        AGENTICBLOCKTRANSFER
+        IRONBLOCKTRANSFER
       </div>
 
       {/* Version badge */}

@@ -1,19 +1,19 @@
-//! OpenAPI 3.1 schema generator for AgenticBlockTransfer.
+//! OpenAPI 3.1 schema generator for IronBlockTransfer.
 //!
-//! Generates a complete OpenAPI specification that describes abt's capabilities
-//! as if they were exposed via a REST/HTTP API. Useful for wrapping abt in a
+//! Generates a complete OpenAPI specification that describes ibt's capabilities
+//! as if they were exposed via a REST/HTTP API. Useful for wrapping ibt in a
 //! web service, generating client SDKs, or feeding into AI tool-use schemas.
 
 use serde_json::{json, Value};
 
-/// Generate a complete OpenAPI 3.1 specification for abt.
+/// Generate a complete OpenAPI 3.1 specification for ibt.
 pub fn generate_openapi_spec() -> Value {
     json!({
         "openapi": "3.1.0",
         "info": {
-            "title": "AgenticBlockTransfer (abt) API",
+            "title": "IronBlockTransfer (ibt) API",
             "version": env!("CARGO_PKG_VERSION"),
-            "description": "REST API specification for AgenticBlockTransfer — an agentic-first \
+            "description": "REST API specification for IronBlockTransfer — an agentic-first \
                 block transfer tool for writing disk images to devices. This specification \
                 describes all capabilities as HTTP endpoints for use in web service wrappers, \
                 SDK generators, and AI tool-use schemas.",
@@ -23,13 +23,13 @@ pub fn generate_openapi_spec() -> Value {
             },
             "contact": {
                 "name": "nervosys",
-                "url": "https://github.com/nervosys/AgenticBlockTransfer"
+                "url": "https://github.com/nervosys/IronBlockTransfer"
             }
         },
         "servers": [
             {
                 "url": "http://localhost:8080",
-                "description": "Local abt HTTP wrapper"
+                "description": "Local ibt HTTP wrapper"
             }
         ],
         "tags": [
@@ -669,7 +669,7 @@ mod tests {
     fn test_openapi_spec_structure() {
         let spec = generate_openapi_spec();
         assert_eq!(spec["openapi"], "3.1.0");
-        assert!(spec["info"]["title"].as_str().unwrap().contains("abt"));
+        assert!(spec["info"]["title"].as_str().unwrap().contains("ibt"));
     }
 
     #[test]

@@ -41,7 +41,7 @@ impl LoopbackDevice {
         self.file.path()
     }
 
-    /// Get the path as a String (for use with abt's string-based target paths).
+    /// Get the path as a String (for use with ibt's string-based target paths).
     pub fn path_string(&self) -> String {
         self.file.path().to_string_lossy().to_string()
     }

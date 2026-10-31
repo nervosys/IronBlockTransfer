@@ -51,7 +51,7 @@ const FadeTransition: React.FC<{
 //   Arch:     735–869 (4.5s, 15f overlap)  — shortened
 //   Outro:    855–899 (4.5s, 15f overlap)  — shortened
 
-export const AbtVideo: React.FC = () => {
+export const IbtVideo: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bgDeep }}>
       {/* Scene 1: Intro */}

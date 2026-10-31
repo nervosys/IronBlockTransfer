@@ -1,4 +1,4 @@
-// CLI command: abt usb-info — show USB connection speed and device info.
+// CLI command: ibt usb-info — show USB connection speed and device info.
 
 use anyhow::Result;
 

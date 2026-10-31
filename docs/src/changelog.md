@@ -1,3 +1,3 @@
 # Changelog
 
-See [CHANGELOG.md](https://github.com/nervosys/AgenticBlockTransfer/blob/main/CHANGELOG.md) in the repository root.
+See [CHANGELOG.md](https://github.com/nervosys/IronBlockTransfer/blob/main/CHANGELOG.md) in the repository root.

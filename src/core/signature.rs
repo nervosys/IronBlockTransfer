@@ -24,7 +24,7 @@ use std::path::{Path, PathBuf};
 /// A public key for verification, stored as PEM-encoded RSA key.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct VerificationKey {
-    /// Key identifier (e.g., "abt-release-2026")
+    /// Key identifier (e.g., "ibt-release-2026")
     pub key_id: String,
     /// PEM-encoded RSA public key (PKCS#8 SubjectPublicKeyInfo)
     pub pem: String,
@@ -261,7 +261,7 @@ pub async fn download_and_verify(
     info!("Downloading with signature verification: {}", url);
 
     let client = reqwest::Client::builder()
-        .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
         .timeout(std::time::Duration::from_secs(3600))
         .build()?;
 

@@ -1,4 +1,4 @@
-// Cyberpunk color theme matching the ABT GUI
+// Cyberpunk color theme matching the IBT GUI
 export const theme = {
   bgDeep: "#0A0A12",
   bgPanel: "#10121E",

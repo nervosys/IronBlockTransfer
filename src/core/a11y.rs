@@ -328,7 +328,7 @@ impl A11yLabel {
 
 // ─── Standard UI element labels ────────────────────────────────────────────
 
-/// Standard accessibility labels for common UI elements in abt.
+/// Standard accessibility labels for common UI elements in ibt.
 pub struct UiLabels;
 
 impl UiLabels {

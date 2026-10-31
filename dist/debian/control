@@ -1,19 +1,19 @@
-Source: abt
+Source: ibt
 Section: utils
 Priority: optional
 Maintainer: nervosys <https://github.com/nervosys>
 Build-Depends: debhelper-compat (= 13), cargo, rustc (>= 1.75)
 Standards-Version: 4.6.2
-Homepage: https://github.com/nervosys/AgenticBlockTransfer
-Vcs-Git: https://github.com/nervosys/AgenticBlockTransfer.git
-Vcs-Browser: https://github.com/nervosys/AgenticBlockTransfer
+Homepage: https://github.com/nervosys/IronBlockTransfer
+Vcs-Git: https://github.com/nervosys/IronBlockTransfer.git
+Vcs-Browser: https://github.com/nervosys/IronBlockTransfer
 Rules-Requires-Root: no
 
-Package: abt
+Package: ibt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Agentic-first CLI successor to dd with GUI/TUI
- AgenticBlockTransfer (abt) is a cross-platform disk image writer
+ IronBlockTransfer (ibt) is a cross-platform disk image writer
  with CLI, TUI, and GUI modes. It provides safe, verified block-level
  writes with AI-discoverable ontology, multi-format support (ISO, IMG,
  QCOW2, VHD, VMDK, WIM), auto-decompression, device cloning, secure

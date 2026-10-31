@@ -2,9 +2,9 @@
 
 use thiserror::Error;
 
-/// Central error type for abt operations.
+/// Central error type for ibt operations.
 #[derive(Error, Debug)]
-pub enum AbtError {
+pub enum IbtError {
     #[error("I/O error: {0}")]
     Io(#[from] std::io::Error),
 
@@ -74,4 +74,4 @@ pub enum AbtError {
     DeviceChanged(String),
 }
 
-pub type Result<T> = std::result::Result<T, AbtError>;
+pub type Result<T> = std::result::Result<T, IbtError>;

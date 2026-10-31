@@ -1,11 +1,17 @@
 # Changelog
 
-All notable changes to AgenticBlockTransfer (abt) will be documented in this file.
+All notable changes to IronBlockTransfer (ibt) will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.0] - 2026-10-31
+
+### Breaking
+
+- **Renamed to IronBlockTransfer.** The binary, crates, packages and release artifacts are now `ibt` instead of `abt`, and type prefixes and tool names follow. MCP tools are now `ibt_*`. Scripts, install commands and dependencies that use the old name must be updated. Configuration and data paths, environment variables, and on-disk and wire formats keep their `abt` names, so existing setups continue to work.
 
 ### Security
 - **RSA signature verification did not verify signatures.** `abt signature --signature <sig> --keyring <ring>` reported "Signature VALID" for any file, given any signature blob of the key's size and a keyring containing a key. The verifier now performs the RFC 8017 PKCS#1 v1.5 check. Affected: 1.6.0, 1.7.0, and 1.7.1 (signed-download and self-update paths were not gated by it). Anyone who relied on `abt signature` results from those versions should re-verify.

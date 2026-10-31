@@ -106,7 +106,7 @@ export const OutroScene: React.FC = () => {
           textShadow: glowText(theme.accent, 6),
         }}
       >
-        ABT
+        IBT
       </div>
 
       {/* Stats row */}
@@ -166,7 +166,7 @@ export const OutroScene: React.FC = () => {
             letterSpacing: 1,
           }}
         >
-          github.com/nervosys/AgenticBlockTransfer
+          github.com/nervosys/IronBlockTransfer
         </span>
       </div>
 

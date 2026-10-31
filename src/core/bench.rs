@@ -1,9 +1,9 @@
 //! Benchmarking suite — measure I/O throughput for block size auto-tuning and comparison.
 //!
-//! Provides `abt bench` functionality to measure sequential write / read / verify
+//! Provides `ibt bench` functionality to measure sequential write / read / verify
 //! throughput at various block sizes, generating a report useful for:
 //!   - Choosing optimal block size for a given device
-//!   - Comparing abt throughput against dd on the same hardware
+//!   - Comparing ibt throughput against dd on the same hardware
 //!   - Validating that I/O optimizations (O_DIRECT, sparse, io_uring) help
 
 use std::io::{Read, Seek, SeekFrom, Write};

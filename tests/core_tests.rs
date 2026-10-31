@@ -11,8 +11,8 @@ mod tests {
         use std::io::Write;
         use tempfile::NamedTempFile;
 
-        use abt::core::image::detect_format;
-        use abt::core::types::ImageFormat;
+        use ibt::core::image::detect_format;
+        use ibt::core::types::ImageFormat;
 
         #[test]
         fn detect_gzip_magic() {
@@ -157,9 +157,9 @@ mod tests {
     mod hashing {
         use std::io::Cursor;
 
-        use abt::core::hasher::hash_reader;
-        use abt::core::progress::Progress;
-        use abt::core::types::HashAlgorithm;
+        use ibt::core::hasher::hash_reader;
+        use ibt::core::progress::Progress;
+        use ibt::core::types::HashAlgorithm;
 
         fn hash_bytes(data: &[u8], algo: HashAlgorithm) -> String {
             let progress = Progress::new(data.len() as u64);
@@ -221,7 +221,7 @@ mod tests {
 
         #[test]
         fn hash_file_works() {
-            use abt::core::hasher::hash_file;
+            use ibt::core::hasher::hash_file;
             use std::io::Write;
             use tempfile::NamedTempFile;
 
@@ -241,7 +241,7 @@ mod tests {
     // ── Progress tracking ──────────────────────────────────────────────────
 
     mod progress {
-        use abt::core::progress::{OperationPhase, Progress};
+        use ibt::core::progress::{OperationPhase, Progress};
 
         #[test]
         fn new_progress_starts_at_zero() {
@@ -327,7 +327,7 @@ mod tests {
     // ── Block size parsing ─────────────────────────────────────────────────
 
     mod block_size {
-        use abt::cli::parse_block_size;
+        use ibt::cli::parse_block_size;
 
         #[test]
         fn parse_plain_bytes() {
@@ -367,7 +367,7 @@ mod tests {
     // ── Type definitions ───────────────────────────────────────────────────
 
     mod types {
-        use abt::core::types::*;
+        use ibt::core::types::*;
         use std::path::PathBuf;
 
         #[test]
@@ -447,8 +447,8 @@ mod tests {
     // ── Device info ────────────────────────────────────────────────────────
 
     mod device {
-        use abt::core::device::DeviceInfo;
-        use abt::core::types::DeviceType;
+        use ibt::core::device::DeviceInfo;
+        use ibt::core::types::DeviceType;
 
         fn sample_device(is_system: bool, read_only: bool, removable: bool) -> DeviceInfo {
             DeviceInfo {
@@ -509,14 +509,14 @@ mod tests {
     // ── Error types ────────────────────────────────────────────────────────
 
     mod errors {
-        use abt::core::error::AbtError;
+        use ibt::core::error::IbtError;
 
         #[test]
         fn error_display_messages() {
-            let e = AbtError::DeviceNotFound("sdb".to_string());
+            let e = IbtError::DeviceNotFound("sdb".to_string());
             assert!(format!("{}", e).contains("sdb"));
 
-            let e = AbtError::ImageTooLarge {
+            let e = IbtError::ImageTooLarge {
                 image_size: 100,
                 device_size: 50,
             };
@@ -524,7 +524,7 @@ mod tests {
             assert!(msg.contains("100"));
             assert!(msg.contains("50"));
 
-            let e = AbtError::ChecksumMismatch {
+            let e = IbtError::ChecksumMismatch {
                 expected: "abc".to_string(),
                 actual: "xyz".to_string(),
             };
@@ -536,21 +536,21 @@ mod tests {
         #[test]
         fn error_variants_are_send() {
             fn assert_send<T: Send>() {}
-            assert_send::<AbtError>();
+            assert_send::<IbtError>();
         }
 
         #[test]
         fn io_error_converts() {
             let io_err = std::io::Error::new(std::io::ErrorKind::NotFound, "test");
-            let abt_err: AbtError = io_err.into();
-            assert!(matches!(abt_err, AbtError::Io(_)));
+            let ibt_err: IbtError = io_err.into();
+            assert!(matches!(ibt_err, IbtError::Io(_)));
         }
     }
 
     // ── Download helpers ───────────────────────────────────────────────────
 
     mod download {
-        use abt::core::download::{cleanup_download, extract_filename};
+        use ibt::core::download::{cleanup_download, extract_filename};
 
         #[test]
         fn extract_filename_basic() {
@@ -600,7 +600,7 @@ mod tests {
     // ── Image info ─────────────────────────────────────────────────────────
 
     mod image_info {
-        use abt::core::image::get_image_info;
+        use ibt::core::image::get_image_info;
         use std::io::Write;
         use tempfile::NamedTempFile;
 
@@ -612,7 +612,7 @@ mod tests {
 
             let info = get_image_info(f.path()).unwrap();
             assert_eq!(info.size, 1024);
-            assert_eq!(info.format, abt::core::types::ImageFormat::Iso,);
+            assert_eq!(info.format, ibt::core::types::ImageFormat::Iso,);
         }
 
         #[test]
@@ -624,9 +624,9 @@ mod tests {
             f.flush().unwrap();
 
             let info = get_image_info(f.path()).unwrap();
-            assert_eq!(info.format, abt::core::types::ImageFormat::Gz);
+            assert_eq!(info.format, ibt::core::types::ImageFormat::Gz);
             // Inner format should be detected from stem
-            assert_eq!(info.inner_format, Some(abt::core::types::ImageFormat::Img));
+            assert_eq!(info.inner_format, Some(ibt::core::types::ImageFormat::Img));
         }
     }
 }

@@ -323,7 +323,7 @@ pub struct SanitizationRecord {
     pub hostname: String,
     /// Whether FIPS mode was active during sanitization
     pub fips_mode: bool,
-    /// abt version used
+    /// ibt version used
     pub tool_version: String,
     /// Any additional notes or warnings
     pub notes: Vec<String>,
@@ -747,7 +747,7 @@ pub fn audit_event_count() -> usize {
 ///   and tracked for remediation.
 pub fn build_compliant_client() -> anyhow::Result<reqwest::Client> {
     let mut builder = reqwest::Client::builder()
-        .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
         .timeout(std::time::Duration::from_secs(7200))
         .connect_timeout(std::time::Duration::from_secs(30))
         .min_tls_version(reqwest::tls::Version::TLS_1_2);
@@ -1000,7 +1000,7 @@ pub fn print_compliance_report() {
             "DISABLED"
         }
     );
-    eprintln!("  abt version: {}", env!("CARGO_PKG_VERSION"));
+    eprintln!("  ibt version: {}", env!("CARGO_PKG_VERSION"));
     eprintln!();
 
     for f in &findings {

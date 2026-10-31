@@ -140,7 +140,7 @@ pub async fn execute(opts: PersistOpts) -> Result<()> {
     // This would call platform-specific partitioning tools
     // For now, report what would be done
     println!("Partition creation requires platform-specific tools (fdisk/gdisk/diskpart).");
-    println!("Use 'abt persist --image-file <path>' for file-based persistence instead.");
+    println!("Use 'ibt persist --image-file <path>' for file-based persistence instead.");
 
     Ok(())
 }

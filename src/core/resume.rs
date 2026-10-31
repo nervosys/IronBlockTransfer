@@ -1,7 +1,7 @@
 // Error recovery — resume interrupted writes from a checkpoint.
 //
 // When a write operation is interrupted (Ctrl+C, power loss, transient error),
-// a checkpoint file records how far the write got. On restart, `abt write --resume`
+// a checkpoint file records how far the write got. On restart, `ibt write --resume`
 // picks up from where it left off, re-hashing the already-written region to
 // verify integrity before continuing.
 //
@@ -34,7 +34,7 @@ pub struct WriteCheckpoint {
     pub block_size: usize,
     /// ISO 8601 timestamp of checkpoint creation.
     pub timestamp: String,
-    /// abt version that created the checkpoint.
+    /// ibt version that created the checkpoint.
     pub version: String,
 }
 

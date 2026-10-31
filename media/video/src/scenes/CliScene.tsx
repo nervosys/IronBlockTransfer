@@ -12,11 +12,11 @@ import { theme, fonts, glowText, scanlineOverlay } from "../theme";
 // Frames 0–180 (6 seconds)
 
 const termLines = [
-  { text: "$ abt list", color: theme.accent, delay: 10 },
+  { text: "$ ibt list", color: theme.accent, delay: 10 },
   { text: "  ◉ /dev/sdb  SanDisk Ultra  32 GiB  USB", color: theme.textSecondary, delay: 30 },
   { text: "  ○ /dev/sdc  Kingston DT    16 GiB  USB", color: theme.textSecondary, delay: 38 },
   { text: "", color: "transparent", delay: 0 },
-  { text: "$ abt write ubuntu-24.04.iso /dev/sdb --verify", color: theme.accent, delay: 55 },
+  { text: "$ ibt write ubuntu-24.04.iso /dev/sdb --verify", color: theme.accent, delay: 55 },
   { text: "  ⚡ Writing ubuntu-24.04.iso → /dev/sdb", color: theme.warning, delay: 75 },
   { text: "  ████████████████████░░░░░  78.3%  42.1 MiB/s  ETA 12s", color: theme.success, delay: 90 },
   { text: "  ████████████████████████  100.0%  Done!", color: theme.success, delay: 120 },
@@ -117,7 +117,7 @@ export const CliScene: React.FC = () => {
               fontFamily: fonts.mono,
             }}
           >
-            abt — bash
+            ibt — bash
           </span>
         </div>
 

@@ -1,6 +1,6 @@
 # Compliance — NIST FIPS, CMMC 2.0, and DoD Standards
 
-This document describes how **abt** (AgenticBlockTransfer) complies with federal
+This document describes how **ibt** (IronBlockTransfer) complies with federal
 information security standards required for data transfer and storage programs
 operating in U.S. Department of Defense (DoD) and federal civilian environments.
 
@@ -21,7 +21,7 @@ operating in U.S. Department of Defense (DoD) and federal civilian environments.
 
 ## FIPS Mode
 
-abt provides a **FIPS compliance mode** that restricts operations to
+ibt provides a **FIPS compliance mode** that restricts operations to
 FIPS-approved algorithms and configurations. FIPS mode is **monotonic** — once
 enabled for a process, it cannot be disabled.
 
@@ -29,15 +29,15 @@ enabled for a process, it cannot be disabled.
 
 ```bash
 # Via CLI flag (recommended)
-abt --fips write -i image.iso -o /dev/sdb
+ibt --fips write -i image.iso -o /dev/sdb
 
 # Via environment variable
 export ABT_FIPS_MODE=1
-abt write -i image.iso -o /dev/sdb
+ibt write -i image.iso -o /dev/sdb
 
 # Windows
 set ABT_FIPS_MODE=1
-abt write -i image.iso -o \\.\PhysicalDrive1
+ibt write -i image.iso -o \\.\PhysicalDrive1
 ```
 
 ### Effects of FIPS Mode
@@ -137,16 +137,16 @@ but does not hold a CMVP certificate. TLS 1.2 minimum is enforced.
 
 ```bash
 # Text report to stderr
-abt compliance
+ibt compliance
 
 # JSON report for SIEM integration
-abt compliance --json
+ibt compliance --json
 
 # With FIPS mode enabled
-abt --fips compliance
+ibt --fips compliance
 
 # Save audit log
-abt compliance --save-audit-log /var/log/abt/
+ibt compliance --save-audit-log /var/log/ibt/
 ```
 
 ### Example Output
@@ -154,7 +154,7 @@ abt compliance --save-audit-log /var/log/abt/
 ```
   ── Compliance Self-Assessment (FIPS / CMMC 2.0 / DoD) ──
   FIPS mode: ENABLED
-  abt version: 1.6.0
+  ibt version: 1.6.0
 
   ✓ [PASS] Hash algorithm restrictions (FIPS 180-4 / SP 800-131A)
     FIPS mode active. Only SHA-256 and SHA-512 are permitted.
@@ -218,7 +218,7 @@ NIST SP 800-88 Rev 1 Table A-8:
 | `operator`               | Username who performed the operation |
 | `hostname`               | Machine hostname                     |
 | `fips_mode`              | Whether FIPS mode was active         |
-| `tool_version`           | abt version                          |
+| `tool_version`           | ibt version                          |
 
 ## Hash Algorithm Reference
 

@@ -361,7 +361,7 @@ pub fn choose_layout(
 /// The actual UEFI:NTFS chainloader binary would be:
 ///   /EFI/Rufus/ntfs_x64.efi (Rufus convention)
 /// or our own:
-///   /EFI/abt/uefi_ntfs.efi
+///   /EFI/ibt/uefi_ntfs.efi
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EspContents {
     /// Architecture-specific boot file path (relative to ESP root).
@@ -377,7 +377,7 @@ impl EspContents {
     pub fn for_amd64() -> Self {
         Self {
             boot_file: "EFI/BOOT/BOOTX64.EFI".into(),
-            chainloader: "EFI/abt/uefi_ntfs_x64.efi".into(),
+            chainloader: "EFI/ibt/uefi_ntfs_x64.efi".into(),
             extra_files: vec![],
         }
     }
@@ -386,7 +386,7 @@ impl EspContents {
     pub fn for_arm64() -> Self {
         Self {
             boot_file: "EFI/BOOT/BOOTAA64.EFI".into(),
-            chainloader: "EFI/abt/uefi_ntfs_aa64.efi".into(),
+            chainloader: "EFI/ibt/uefi_ntfs_aa64.efi".into(),
             extra_files: vec![],
         }
     }
@@ -396,7 +396,7 @@ impl EspContents {
         let mut dirs = vec![
             "EFI".to_string(),
             "EFI/BOOT".to_string(),
-            "EFI/abt".to_string(),
+            "EFI/ibt".to_string(),
         ];
         // Add directories from extra files
         for (path, _) in &self.extra_files {
@@ -582,7 +582,7 @@ mod tests {
         let dirs = esp.required_directories();
         assert!(dirs.contains(&"EFI".to_string()));
         assert!(dirs.contains(&"EFI/BOOT".to_string()));
-        assert!(dirs.contains(&"EFI/abt".to_string()));
+        assert!(dirs.contains(&"EFI/ibt".to_string()));
     }
 
     #[test]

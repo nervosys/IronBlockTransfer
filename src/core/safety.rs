@@ -1,7 +1,7 @@
 // Safety module — pre-flight checks, dry-run, device fingerprinting
 //
-// This is what makes abt fundamentally safer than dd for both humans and AI agents.
-// dd will silently destroy any target with zero validation. abt runs a comprehensive
+// This is what makes ibt fundamentally safer than dd for both humans and AI agents.
+// dd will silently destroy any target with zero validation. ibt runs a comprehensive
 // pre-flight safety analysis before any destructive operation, producing a structured
 // machine-readable report that agents can parse and act on.
 
@@ -15,7 +15,7 @@ use super::types::ImageSource;
 
 // ── Safety levels ──────────────────────────────────────────────────────────────
 
-/// How strict should abt be? Higher levels add more checks and require more
+/// How strict should ibt be? Higher levels add more checks and require more
 /// explicit confirmation before proceeding.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
@@ -68,13 +68,13 @@ impl std::str::FromStr for SafetyLevel {
 
 /// A cryptographic-ish identity token for a device, so agents can confirm they're
 /// writing to the exact device they inspected. This prevents TOCTOU races between
-/// `abt list` and `abt write`.
+/// `ibt list` and `ibt write`.
 ///
 /// An agent workflow:
-///   1. `abt list --json` → gets devices with fingerprints
+///   1. `ibt list --json` → gets devices with fingerprints
 ///   2. Agent selects device, extracts fingerprint
-///   3. `abt write -i image.iso -o /dev/sdb --confirm-token <fingerprint>`
-///   4. abt verifies the device still matches the fingerprint before writing
+///   3. `ibt write -i image.iso -o /dev/sdb --confirm-token <fingerprint>`
+///   4. ibt verifies the device still matches the fingerprint before writing
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct DeviceFingerprint {
     /// Device path at time of enumeration
@@ -586,7 +586,7 @@ pub async fn preflight_check(
                 passed: false,
                 severity: CheckSeverity::Error,
                 detail: "High safety level requires --confirm-token. \
-                         Use 'abt list --json' to get device tokens."
+                         Use 'ibt list --json' to get device tokens."
                     .into(),
             });
         }
@@ -729,29 +729,29 @@ impl ExitCode {
 
 /// Map an anyhow::Error to a structured exit code.
 pub fn error_to_exit_code(err: &anyhow::Error) -> ExitCode {
-    if let Some(abt_err) = err.downcast_ref::<super::error::AbtError>() {
-        match abt_err {
-            super::error::AbtError::Io(_) => ExitCode::GeneralError,
-            super::error::AbtError::DeviceNotFound(_) => ExitCode::TargetError,
-            super::error::AbtError::SystemDrive(_) => ExitCode::SafetyCheckFailed,
-            super::error::AbtError::ReadOnly(_) => ExitCode::TargetError,
-            super::error::AbtError::ImageNotFound(_) => ExitCode::SourceError,
-            super::error::AbtError::UnsupportedFormat(_) => ExitCode::SourceError,
-            super::error::AbtError::ImageTooLarge { .. } => ExitCode::SizeMismatch,
-            super::error::AbtError::VerificationFailed { .. } => ExitCode::VerificationFailed,
-            super::error::AbtError::ChecksumMismatch { .. } => ExitCode::VerificationFailed,
-            super::error::AbtError::Aborted => ExitCode::Cancelled,
-            super::error::AbtError::PermissionDenied => ExitCode::PermissionDenied,
-            super::error::AbtError::Decompression(_) => ExitCode::SourceError,
-            super::error::AbtError::FormatError(_) => ExitCode::GeneralError,
-            super::error::AbtError::PlatformError(_) => ExitCode::GeneralError,
-            super::error::AbtError::ConfigError(_) => ExitCode::GeneralError,
-            super::error::AbtError::Timeout { .. } => ExitCode::GeneralError,
-            super::error::AbtError::CancelledByUser => ExitCode::Cancelled,
-            super::error::AbtError::BackupFailed(_) => ExitCode::GeneralError,
-            super::error::AbtError::TokenMismatch { .. } => ExitCode::DeviceChanged,
-            super::error::AbtError::RetryExhausted { .. } => ExitCode::GeneralError,
-            super::error::AbtError::DeviceChanged(_) => ExitCode::DeviceChanged,
+    if let Some(ibt_err) = err.downcast_ref::<super::error::IbtError>() {
+        match ibt_err {
+            super::error::IbtError::Io(_) => ExitCode::GeneralError,
+            super::error::IbtError::DeviceNotFound(_) => ExitCode::TargetError,
+            super::error::IbtError::SystemDrive(_) => ExitCode::SafetyCheckFailed,
+            super::error::IbtError::ReadOnly(_) => ExitCode::TargetError,
+            super::error::IbtError::ImageNotFound(_) => ExitCode::SourceError,
+            super::error::IbtError::UnsupportedFormat(_) => ExitCode::SourceError,
+            super::error::IbtError::ImageTooLarge { .. } => ExitCode::SizeMismatch,
+            super::error::IbtError::VerificationFailed { .. } => ExitCode::VerificationFailed,
+            super::error::IbtError::ChecksumMismatch { .. } => ExitCode::VerificationFailed,
+            super::error::IbtError::Aborted => ExitCode::Cancelled,
+            super::error::IbtError::PermissionDenied => ExitCode::PermissionDenied,
+            super::error::IbtError::Decompression(_) => ExitCode::SourceError,
+            super::error::IbtError::FormatError(_) => ExitCode::GeneralError,
+            super::error::IbtError::PlatformError(_) => ExitCode::GeneralError,
+            super::error::IbtError::ConfigError(_) => ExitCode::GeneralError,
+            super::error::IbtError::Timeout { .. } => ExitCode::GeneralError,
+            super::error::IbtError::CancelledByUser => ExitCode::Cancelled,
+            super::error::IbtError::BackupFailed(_) => ExitCode::GeneralError,
+            super::error::IbtError::TokenMismatch { .. } => ExitCode::DeviceChanged,
+            super::error::IbtError::RetryExhausted { .. } => ExitCode::GeneralError,
+            super::error::IbtError::DeviceChanged(_) => ExitCode::DeviceChanged,
         }
     } else {
         ExitCode::GeneralError

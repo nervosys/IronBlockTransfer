@@ -1,6 +1,6 @@
 # Image Formats
 
-`abt` supports reading and writing a wide range of disk image formats.
+`ibt` supports reading and writing a wide range of disk image formats.
 
 ## Supported Formats
 
@@ -30,7 +30,7 @@ Decompression is automatic and detected via magic bytes (not file extensions):
 
 ## Parallel Decompression
 
-For large compressed images, `abt` uses a multi-threaded decompression pipeline:
+For large compressed images, `ibt` uses a multi-threaded decompression pipeline:
 
 - **bz2/zstd** — parallel block decompress (multiple threads decode independent blocks)
 - **gz/xz** — read-ahead pipeline (background thread reads + decompresses ahead of writer)

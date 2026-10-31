@@ -124,7 +124,7 @@ fn linux_inhibit_sleep(reason: &InhibitReason) -> Option<std::os::unix::io::RawF
     let result = std::process::Command::new("systemd-inhibit")
         .args([
             "--what=idle:sleep",
-            "--who=abt",
+            "--who=ibt",
             &format!("--why={}", reason),
             "--mode=block",
             "sleep",

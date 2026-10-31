@@ -540,7 +540,7 @@ mod tests {
         c.write_u32::<BigEndian>(0x00010000).unwrap(); // format_version
         c.write_u64::<BigEndian>(0xFFFFFFFFFFFFFFFF).unwrap(); // data_offset (none for fixed)
         c.write_u32::<BigEndian>(0).unwrap(); // timestamp
-        c.write_all(b"abt ").unwrap(); // creator_app
+        c.write_all(b"ibt ").unwrap(); // creator_app
         c.write_u32::<BigEndian>(0x00010000).unwrap(); // creator_version
         c.write_u32::<BigEndian>(0x5769326B).unwrap(); // creator_host_os (Wi2k = Windows)
         c.write_u64::<BigEndian>(virtual_size).unwrap(); // original_size
@@ -623,8 +623,8 @@ mod tests {
         let mut img = vec![0u8; 0x20000]; // 128 KiB minimum
         img[0..8].copy_from_slice(VHDX_FILE_MAGIC);
 
-        // Write creator as UTF-16LE: "abt"
-        let creator = "abt";
+        // Write creator as UTF-16LE: "ibt"
+        let creator = "ibt";
         for (i, ch) in creator.chars().enumerate() {
             img[8 + i * 2] = ch as u8;
             img[8 + i * 2 + 1] = 0;
@@ -637,7 +637,7 @@ mod tests {
         let mut cursor = Cursor::new(&img);
         let info = parse_vhdx(&mut cursor).unwrap();
         assert_eq!(&info.file_id.signature, VHDX_FILE_MAGIC);
-        assert_eq!(info.file_id.creator, "abt");
+        assert_eq!(info.file_id.creator, "ibt");
     }
 
     #[test]

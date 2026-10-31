@@ -1,14 +1,14 @@
 # Configuration
 
-`abt` supports a TOML configuration file for persistent defaults.
+`ibt` supports a TOML configuration file for persistent defaults.
 
 ## Config File Location
 
 | Platform | Path                                            |
 | -------- | ----------------------------------------------- |
 | Linux    | `~/.config/abt/config.toml`                     |
-| macOS    | `~/Library/Application Support/abt/config.toml` |
-| Windows  | `%APPDATA%\abt\config.toml`                     |
+| macOS    | `~/Library/Application Support/ibt/config.toml` |
+| Windows  | `%APPDATA%\ibt\config.toml`                     |
 
 ## Example Configuration
 

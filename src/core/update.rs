@@ -1,4 +1,4 @@
-// Self-update / version check module — check for new releases of abt.
+// Self-update / version check module — check for new releases of ibt.
 //
 // Inspired by Rufus's CheckForUpdatesThread which contacts a server on a
 // configurable interval and compares server version to local version.
@@ -16,11 +16,11 @@ use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
 use std::time::Duration;
 
-/// Current version of abt (from Cargo.toml at compile time).
+/// Current version of ibt (from Cargo.toml at compile time).
 pub const CURRENT_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 /// Default GitHub repository for update checks.
-const DEFAULT_REPO: &str = "nervosys/AgenticBlockTransfer";
+const DEFAULT_REPO: &str = "nervosys/IronBlockTransfer";
 
 /// Default update check interval (24 hours in seconds).
 const DEFAULT_CHECK_INTERVAL_SECS: u64 = 86400;
@@ -50,7 +50,7 @@ pub struct ReleaseInfo {
 /// A downloadable release asset.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ReleaseAsset {
-    /// Asset filename (e.g., "abt-1.2.0-x86_64-unknown-linux-musl.tar.gz").
+    /// Asset filename (e.g., "ibt-1.2.0-x86_64-unknown-linux-musl.tar.gz").
     pub name: String,
     /// Direct download URL.
     pub browser_download_url: String,
@@ -209,7 +209,7 @@ pub async fn check_for_updates(opts: &UpdateCheckOpts) -> Result<UpdateCheckResu
     let api_url = format!("https://api.github.com/repos/{}/releases/latest", opts.repo);
 
     let client = reqwest::Client::builder()
-        .user_agent(format!("abt/{}", CURRENT_VERSION))
+        .user_agent(format!("ibt/{}", CURRENT_VERSION))
         .timeout(Duration::from_secs(15))
         .build()?;
 
@@ -289,7 +289,7 @@ pub async fn check_for_updates(opts: &UpdateCheckOpts) -> Result<UpdateCheckResu
             CURRENT_VERSION, remote_version
         );
     } else {
-        info!("abt is up to date ({})", CURRENT_VERSION);
+        info!("ibt is up to date ({})", CURRENT_VERSION);
     }
 
     Ok(result)
@@ -324,14 +324,14 @@ fn find_platform_asset(assets: &[ReleaseAsset]) -> Option<String> {
     // Try exact match first, then partial matches
     let name_lower: Vec<String> = assets.iter().map(|a| a.name.to_lowercase()).collect();
 
-    // Exact platform+arch (e.g., "abt-1.2.0-x86_64-unknown-linux-musl.tar.gz")
+    // Exact platform+arch (e.g., "ibt-1.2.0-x86_64-unknown-linux-musl.tar.gz")
     for (i, name) in name_lower.iter().enumerate() {
         if name.contains(os) && name.contains(arch) {
             return Some(assets[i].browser_download_url.clone());
         }
     }
 
-    // OS-only match (e.g., "abt-1.2.0-windows.zip")
+    // OS-only match (e.g., "ibt-1.2.0-windows.zip")
     for (i, name) in name_lower.iter().enumerate() {
         if name.contains(os) {
             return Some(assets[i].browser_download_url.clone());
@@ -450,7 +450,7 @@ mod tests {
     #[test]
     fn test_update_check_opts_default() {
         let opts = UpdateCheckOpts::default();
-        assert_eq!(opts.repo, "nervosys/AgenticBlockTransfer");
+        assert_eq!(opts.repo, "nervosys/IronBlockTransfer");
         assert_eq!(opts.check_interval_secs, 86400);
         assert!(!opts.include_prerelease);
         assert!(!opts.force);
@@ -467,8 +467,8 @@ mod tests {
             "published_at": "2025-01-01T00:00:00Z",
             "html_url": "https://github.com/test/repo/releases/tag/v1.2.0",
             "assets": [{
-                "name": "abt-1.2.0-x86_64-unknown-linux-musl.tar.gz",
-                "browser_download_url": "https://github.com/test/repo/releases/download/v1.2.0/abt.tar.gz",
+                "name": "ibt-1.2.0-x86_64-unknown-linux-musl.tar.gz",
+                "browser_download_url": "https://github.com/test/repo/releases/download/v1.2.0/ibt.tar.gz",
                 "size": 5000000,
                 "content_type": "application/gzip",
                 "download_count": 100
@@ -486,21 +486,21 @@ mod tests {
     fn test_find_platform_asset() {
         let assets = vec![
             ReleaseAsset {
-                name: "abt-1.2.0-x86_64-unknown-linux-musl.tar.gz".into(),
+                name: "ibt-1.2.0-x86_64-unknown-linux-musl.tar.gz".into(),
                 browser_download_url: "https://example.com/linux.tar.gz".into(),
                 size: 1000,
                 content_type: "application/gzip".into(),
                 download_count: 0,
             },
             ReleaseAsset {
-                name: "abt-1.2.0-windows-x86_64.zip".into(),
+                name: "ibt-1.2.0-windows-x86_64.zip".into(),
                 browser_download_url: "https://example.com/windows.zip".into(),
                 size: 2000,
                 content_type: "application/zip".into(),
                 download_count: 0,
             },
             ReleaseAsset {
-                name: "abt-1.2.0-aarch64-apple-macos.tar.gz".into(),
+                name: "ibt-1.2.0-aarch64-apple-macos.tar.gz".into(),
                 browser_download_url: "https://example.com/macos.tar.gz".into(),
                 size: 1500,
                 content_type: "application/gzip".into(),
@@ -533,7 +533,7 @@ mod tests {
             is_prerelease: false,
             release_notes: "Bug fixes".into(),
             release_url: "https://github.com/test/releases/v1.1.0".into(),
-            download_url: Some("https://example.com/abt.tar.gz".into()),
+            download_url: Some("https://example.com/ibt.tar.gz".into()),
             checked_at: "2025-01-01T00:00:00Z".into(),
         };
         let json = serde_json::to_string(&result).unwrap();

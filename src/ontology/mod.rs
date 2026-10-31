@@ -1,8 +1,8 @@
 // Ontology module — AI-discoverable capability schema
 //
-// Provides a machine-readable, semantically-annotated description of abt's
+// Provides a machine-readable, semantically-annotated description of ibt's
 // capabilities using JSON-LD and schema.org vocabulary. This enables agentic AI systems
-// to discover, understand, and invoke abt operations without human guidance.
+// to discover, understand, and invoke ibt operations without human guidance.
 
 pub mod openapi;
 
@@ -148,10 +148,10 @@ pub struct Example {
     pub use_case: String,
 }
 
-/// Build the complete ontology for AgenticBlockTransfer.
+/// Build the complete ontology for IronBlockTransfer.
 pub fn build_ontology() -> ToolOntology {
     ToolOntology {
-        name: "AgenticBlockTransfer".to_string(),
+        name: "IronBlockTransfer".to_string(),
         version: env!("CARGO_PKG_VERSION").to_string(),
         description: "Cross-platform data/disk writer for images, devices, and streams. \
             Writes disk images (ISO, IMG, VHD, QCOW2, raw, compressed) to block devices \
@@ -175,7 +175,7 @@ fn build_capabilities() -> Vec<Capability> {
                 and optional post-write verification."
                 .to_string(),
             category: CapabilityCategory::DataTransfer,
-            cli_command: "abt write".to_string(),
+            cli_command: "ibt write".to_string(),
             parameters: vec![
                 Parameter {
                     name: "source".to_string(),
@@ -301,11 +301,11 @@ fn build_capabilities() -> Vec<Capability> {
                 Parameter {
                     name: "confirm_token".to_string(),
                     cli_flag: "--confirm-token".to_string(),
-                    description: "Device confirmation token from 'abt list --json'. Prevents TOCTOU race between device enumeration and write. Required at high safety level.".to_string(),
+                    description: "Device confirmation token from 'ibt list --json'. Prevents TOCTOU race between device enumeration and write. Required at high safety level.".to_string(),
                     param_type: ParamType::String,
                     required: false,
                     default: None,
-                    constraints: Some(json!({"format": "hex-encoded 128-bit SHA-256 device fingerprint", "source": "abt list --json → devices[].confirm_token"})),
+                    constraints: Some(json!({"format": "hex-encoded 128-bit SHA-256 device fingerprint", "source": "ibt list --json → devices[].confirm_token"})),
                     examples: vec!["a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6".to_string()],
                     semantic_type: None,
                 },
@@ -364,32 +364,32 @@ fn build_capabilities() -> Vec<Capability> {
             examples: vec![
                 Example {
                     description: "Write an ISO to a USB drive on Linux".to_string(),
-                    command: "sudo abt write -i ubuntu.iso -o /dev/sdb".to_string(),
+                    command: "sudo ibt write -i ubuntu.iso -o /dev/sdb".to_string(),
                     use_case: "Creating a bootable Linux USB installer".to_string(),
                 },
                 Example {
                     description: "Flash a compressed firmware image on Windows".to_string(),
-                    command: r"abt write -i firmware.img.xz -o \\.\PhysicalDrive2 --force".to_string(),
+                    command: r"ibt write -i firmware.img.xz -o \\.\PhysicalDrive2 --force".to_string(),
                     use_case: "Flashing embedded device firmware from a CI/CD pipeline".to_string(),
                 },
                 Example {
                     description: "Write and verify on macOS".to_string(),
-                    command: "sudo abt write -i raspberrypi.img.gz -o /dev/disk4 --verify".to_string(),
+                    command: "sudo ibt write -i raspberrypi.img.gz -o /dev/disk4 --verify".to_string(),
                     use_case: "Preparing a Raspberry Pi SD card with verification".to_string(),
                 },
                 Example {
                     description: "Agent dry-run: validate before writing".to_string(),
-                    command: "abt write -i image.iso -o /dev/sdb --dry-run --safety-level medium -o json".to_string(),
+                    command: "ibt write -i image.iso -o /dev/sdb --dry-run --safety-level medium -o json".to_string(),
                     use_case: "AI agent pre-flight check — validates all safety conditions without writing".to_string(),
                 },
                 Example {
                     description: "Agent write with device confirmation token".to_string(),
-                    command: "abt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4... --safety-level medium -o json".to_string(),
-                    use_case: "AI agent confirmed write — token from 'abt list --json' proves agent inspected the device".to_string(),
+                    command: "ibt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4... --safety-level medium -o json".to_string(),
+                    use_case: "AI agent confirmed write — token from 'ibt list --json' proves agent inspected the device".to_string(),
                 },
                 Example {
                     description: "High safety mode with partition backup".to_string(),
-                    command: "sudo abt write -i image.iso -o /dev/sdb --safety-level high --confirm-token a1b2c3d4...".to_string(),
+                    command: "sudo ibt write -i image.iso -o /dev/sdb --safety-level high --confirm-token a1b2c3d4...".to_string(),
                     use_case: "Maximum safety: backs up partition table, requires token, only allows removable media".to_string(),
                 },
             ],
@@ -413,7 +413,7 @@ fn build_capabilities() -> Vec<Capability> {
                 Useful for post-write validation or integrity checking."
                 .to_string(),
             category: CapabilityCategory::Verification,
-            cli_command: "abt verify".to_string(),
+            cli_command: "ibt verify".to_string(),
             parameters: vec![
                 Parameter {
                     name: "target".to_string(),
@@ -474,7 +474,7 @@ fn build_capabilities() -> Vec<Capability> {
             examples: vec![
                 Example {
                     description: "Verify a written USB drive against source".to_string(),
-                    command: "abt verify -i ubuntu.iso -o /dev/sdb".to_string(),
+                    command: "ibt verify -i ubuntu.iso -o /dev/sdb".to_string(),
                     use_case: "Post-write integrity check".to_string(),
                 },
             ],
@@ -491,7 +491,7 @@ fn build_capabilities() -> Vec<Capability> {
                 and safety classification."
                 .to_string(),
             category: CapabilityCategory::DeviceManagement,
-            cli_command: "abt list".to_string(),
+            cli_command: "ibt list".to_string(),
             parameters: vec![
                 Parameter {
                     name: "all".to_string(),
@@ -575,17 +575,17 @@ fn build_capabilities() -> Vec<Capability> {
             examples: vec![
                 Example {
                     description: "List USB drives".to_string(),
-                    command: "abt list --type usb".to_string(),
+                    command: "ibt list --type usb".to_string(),
                     use_case: "Finding the target USB drive before writing".to_string(),
                 },
                 Example {
                     description: "List all devices including system".to_string(),
-                    command: "abt list --all".to_string(),
+                    command: "ibt list --all".to_string(),
                     use_case: "Full system inventory".to_string(),
                 },
                 Example {
                     description: "Agent device discovery with fingerprints".to_string(),
-                    command: "abt list --json".to_string(),
+                    command: "ibt list --json".to_string(),
                     use_case: "AI agent enumerates devices and extracts confirm_token for safe write".to_string(),
                 },
             ],
@@ -601,7 +601,7 @@ fn build_capabilities() -> Vec<Capability> {
                 including format detection, size, partition info, and safety classification."
                 .to_string(),
             category: CapabilityCategory::Information,
-            cli_command: "abt info".to_string(),
+            cli_command: "ibt info".to_string(),
             parameters: vec![
                 Parameter {
                     name: "path".to_string(),
@@ -629,12 +629,12 @@ fn build_capabilities() -> Vec<Capability> {
             examples: vec![
                 Example {
                     description: "Inspect a device".to_string(),
-                    command: "abt info /dev/sdb".to_string(),
+                    command: "ibt info /dev/sdb".to_string(),
                     use_case: "Check device details before writing".to_string(),
                 },
                 Example {
                     description: "Inspect an image file".to_string(),
-                    command: "abt info ubuntu.iso".to_string(),
+                    command: "ibt info ubuntu.iso".to_string(),
                     use_case: "Determine image format and size".to_string(),
                 },
             ],
@@ -650,7 +650,7 @@ fn build_capabilities() -> Vec<Capability> {
                 of files or block devices."
                 .to_string(),
             category: CapabilityCategory::Verification,
-            cli_command: "abt checksum".to_string(),
+            cli_command: "ibt checksum".to_string(),
             parameters: vec![
                 Parameter {
                     name: "path".to_string(),
@@ -688,12 +688,12 @@ fn build_capabilities() -> Vec<Capability> {
             examples: vec![
                 Example {
                     description: "SHA-256 of an ISO".to_string(),
-                    command: "abt checksum ubuntu.iso -a sha256".to_string(),
+                    command: "ibt checksum ubuntu.iso -a sha256".to_string(),
                     use_case: "Verify download integrity".to_string(),
                 },
                 Example {
                     description: "Multiple algorithms".to_string(),
-                    command: "abt checksum firmware.bin -a sha256 -a sha512".to_string(),
+                    command: "ibt checksum firmware.bin -a sha256 -a sha512".to_string(),
                     use_case: "Generate multiple checksums for distribution".to_string(),
                 },
             ],
@@ -709,7 +709,7 @@ fn build_capabilities() -> Vec<Capability> {
                 ext4, XFS, Btrfs, etc.). Erases all existing data."
                 .to_string(),
             category: CapabilityCategory::Formatting,
-            cli_command: "abt format".to_string(),
+            cli_command: "ibt format".to_string(),
             parameters: vec![
                 Parameter {
                     name: "device".to_string(),
@@ -770,7 +770,7 @@ fn build_capabilities() -> Vec<Capability> {
             examples: vec![
                 Example {
                     description: "Format USB as FAT32".to_string(),
-                    command: "sudo abt format /dev/sdb -f fat32 -l BOOT".to_string(),
+                    command: "sudo ibt format /dev/sdb -f fat32 -l BOOT".to_string(),
                     use_case: "Prepare a USB drive for general use".to_string(),
                 },
             ],
@@ -784,10 +784,10 @@ fn build_capabilities() -> Vec<Capability> {
             name: "Export Ontology".to_string(),
             description: "Export the machine-readable capability ontology as JSON-LD for AI agent \
                 discovery and integration. Enables agentic systems to understand and invoke \
-                abt operations programmatically."
+                ibt operations programmatically."
                 .to_string(),
             category: CapabilityCategory::Meta,
-            cli_command: "abt ontology".to_string(),
+            cli_command: "ibt ontology".to_string(),
             parameters: vec![
                 Parameter {
                     name: "format".to_string(),
@@ -825,7 +825,7 @@ fn build_capabilities() -> Vec<Capability> {
             examples: vec![
                 Example {
                     description: "Export full ontology".to_string(),
-                    command: "abt ontology --full".to_string(),
+                    command: "ibt ontology --full".to_string(),
                     use_case: "AI agent capability discovery".to_string(),
                 },
             ],
@@ -865,10 +865,10 @@ fn cap(
         name: name.to_string(),
         description: description.to_string(),
         category,
-        cli_command: format!("abt {id}"),
+        cli_command: format!("ibt {id}"),
         parameters: vec![],
         returns: ReturnType {
-            description: "See `abt <command> --help` for the output shape.".to_string(),
+            description: "See `ibt <command> --help` for the output shape.".to_string(),
             schema: None,
             exit_codes: vec![
                 ExitCode {
@@ -894,14 +894,14 @@ fn cap(
 /// Every command that is not one of the seven fully-described capabilities.
 ///
 /// Before this existed the ontology declared 7 of 48 commands, so an agent
-/// that trusted it as complete would have concluded abt cannot wipe a drive.
+/// that trusted it as complete would have concluded ibt cannot wipe a drive.
 fn remaining_capabilities() -> Vec<Capability> {
     vec![
         cap("completions", "Shell Completions", "Generate shell completions for bash, zsh, fish, or PowerShell.", CapabilityCategory::Meta, false, false, true, &[]),
         cap("man", "Man Pages", "Generate man pages to a directory.", CapabilityCategory::Meta, false, false, true, &[]),
         cap("tui", "Interactive TUI", "Launch interactive terminal UI mode.", CapabilityCategory::Meta, false, false, false, &["Holds the terminal until the user exits."]),
         cap("gui", "Graphical UI", "Launch graphical UI mode.", CapabilityCategory::Meta, false, false, false, &["Holds the process until the window is closed."]),
-        cap("mcp", "MCP Server", "Start an MCP (Model Context Protocol) server so an agent can drive abt over JSON-RPC.", CapabilityCategory::Meta, false, false, false, &["Serves until stopped.", "Exposes the destructive capabilities in this ontology to whatever connects."]),
+        cap("mcp", "MCP Server", "Start an MCP (Model Context Protocol) server so an agent can drive ibt over JSON-RPC.", CapabilityCategory::Meta, false, false, false, &["Serves until stopped.", "Exposes the destructive capabilities in this ontology to whatever connects."]),
         cap("clone", "Clone Device", "Clone a device or image to another device (block-level copy).", CapabilityCategory::DataTransfer, true, true, true, &["The target is overwritten in full."]),
         cap("erase", "Secure Erase", "Securely erase a device by zero-fill, random overwrite, ATA secure erase, or NVMe sanitize.", CapabilityCategory::DeviceManagement, true, true, true, &["All data on the target is destroyed and is not recoverable."]),
         cap("boot", "Validate Boot Sector", "Validate the boot sector (MBR / GPT / UEFI) of a device or image.", CapabilityCategory::Verification, true, false, true, &[]),
@@ -914,7 +914,7 @@ fn remaining_capabilities() -> Vec<Capability> {
         cap("health", "Drive Health", "Check drive health: bad blocks, fake-flash detection, read test.", CapabilityCategory::Verification, true, true, true, &["The default read test is non-destructive.", "--force runs a destructive bad-block test that overwrites the device. Declared destructive because that mode exists."]),
         cap("backup", "Back Up Drive", "Back up a drive or partition to a compressed image file.", CapabilityCategory::DataTransfer, true, false, true, &["Reads the source device; writes only the image file."]),
         cap("persist", "Persistence Partition", "Create a persistent storage partition for a live Linux USB.", CapabilityCategory::DeviceManagement, true, true, true, &["Repartitions the target."]),
-        cap("update", "Self Update", "Check for abt updates and optionally self-update.", CapabilityCategory::Meta, true, false, false, &["Replaces the installed abt binary, which may require elevation depending on the install path."]),
+        cap("update", "Self Update", "Check for ibt updates and optionally self-update.", CapabilityCategory::Meta, true, false, false, &["Replaces the installed ibt binary, which may require elevation depending on the install path."]),
         cap("mirror", "Download Mirrors", "Manage download mirrors: probe latency, failover, metalink.", CapabilityCategory::Meta, false, false, true, &[]),
         cap("checksum-file", "Checksum Files", "Parse and verify checksum files such as SHA256SUMS and SHA512SUMS.", CapabilityCategory::Verification, false, false, true, &[]),
         cap("usb-info", "USB Speed Info", "Show USB device speed information and write-time estimates.", CapabilityCategory::Information, true, false, true, &[]),
@@ -1022,7 +1022,7 @@ fn build_type_definitions() -> Vec<TypeDefinition> {
         },
         TypeDefinition {
             name: "ExitCode".to_string(),
-            description: "Structured exit codes with well-defined semantics for agent consumption. dd uses only 0/1; abt provides granular error classification.".to_string(),
+            description: "Structured exit codes with well-defined semantics for agent consumption. dd uses only 0/1; ibt provides granular error classification.".to_string(),
             values: vec![
                 TypeValue { value: "0".to_string(), description: "Success — operation completed without errors".to_string() },
                 TypeValue { value: "1".to_string(), description: "General / unspecified error".to_string() },
@@ -1137,17 +1137,17 @@ pub fn to_json_ld(ontology: &ToolOntology, full: bool) -> Value {
     for cap in &ontology.capabilities {
         let mut cap_json = json!({
             "@type": "schema:Action",
-            "@id": format!("abt:{}", cap.id),
+            "@id": format!("ibt:{}", cap.id),
             "schema:name": cap.name,
             "schema:description": cap.description,
-            "abt:category": format!("{:?}", cap.category),
-            "abt:cliCommand": cap.cli_command,
-            "abt:requiresElevation": cap.requires_elevation,
-            "abt:destructive": cap.destructive,
-            "abt:idempotent": cap.idempotent,
-            "abt:preconditions": cap.preconditions,
-            "abt:postconditions": cap.postconditions,
-            "abt:relatedCapabilities": cap.related,
+            "ibt:category": format!("{:?}", cap.category),
+            "ibt:cliCommand": cap.cli_command,
+            "ibt:requiresElevation": cap.requires_elevation,
+            "ibt:destructive": cap.destructive,
+            "ibt:idempotent": cap.idempotent,
+            "ibt:preconditions": cap.preconditions,
+            "ibt:postconditions": cap.postconditions,
+            "ibt:relatedCapabilities": cap.related,
         });
 
         if full {
@@ -1159,17 +1159,17 @@ pub fn to_json_ld(ontology: &ToolOntology, full: bool) -> Value {
                         "@type": "schema:PropertyValueSpecification",
                         "schema:name": p.name,
                         "schema:description": p.description,
-                        "abt:cliFlag": p.cli_flag,
-                        "abt:paramType": format!("{:?}", p.param_type),
-                        "abt:required": p.required,
-                        "abt:default": p.default,
-                        "abt:constraints": p.constraints,
-                        "abt:examples": p.examples,
+                        "ibt:cliFlag": p.cli_flag,
+                        "ibt:paramType": format!("{:?}", p.param_type),
+                        "ibt:required": p.required,
+                        "ibt:default": p.default,
+                        "ibt:constraints": p.constraints,
+                        "ibt:examples": p.examples,
                         "schema:additionalType": p.semantic_type,
                     })
                 })
                 .collect();
-            cap_json["abt:parameters"] = json!(params);
+            cap_json["ibt:parameters"] = json!(params);
 
             let examples: Vec<Value> = cap
                 .examples
@@ -1179,17 +1179,17 @@ pub fn to_json_ld(ontology: &ToolOntology, full: bool) -> Value {
                         "@type": "schema:HowToStep",
                         "schema:description": e.description,
                         "schema:text": e.command,
-                        "abt:useCase": e.use_case,
+                        "ibt:useCase": e.use_case,
                     })
                 })
                 .collect();
             cap_json["schema:potentialAction"] = json!(examples);
 
-            cap_json["abt:returnType"] = json!({
+            cap_json["ibt:returnType"] = json!({
                 "schema:description": cap.returns.description,
-                "abt:schema": cap.returns.schema,
-                "abt:exitCodes": cap.returns.exit_codes.iter().map(|ec| json!({
-                    "abt:code": ec.code,
+                "ibt:schema": cap.returns.schema,
+                "ibt:exitCodes": cap.returns.exit_codes.iter().map(|ec| json!({
+                    "ibt:code": ec.code,
                     "schema:description": ec.meaning,
                 })).collect::<Vec<_>>(),
             });
@@ -1207,7 +1207,7 @@ pub fn to_json_ld(ontology: &ToolOntology, full: bool) -> Value {
                     "@type": "schema:Enumeration",
                     "schema:name": t.name,
                     "schema:description": t.description,
-                    "abt:values": t.values.iter().map(|v| json!({
+                    "ibt:values": t.values.iter().map(|v| json!({
                         "schema:value": v.value,
                         "schema:description": v.description,
                     })).collect::<Vec<_>>(),
@@ -1222,7 +1222,7 @@ pub fn to_json_ld(ontology: &ToolOntology, full: bool) -> Value {
                 json!({
                     "schema:name": t.name,
                     "schema:description": t.description,
-                    "abt:valueCount": t.values.len(),
+                    "ibt:valueCount": t.values.len(),
                 })
             })
             .collect()
@@ -1231,11 +1231,11 @@ pub fn to_json_ld(ontology: &ToolOntology, full: bool) -> Value {
     json!({
         "@context": {
             "schema": "https://schema.org/",
-            "abt": "https://github.com/nervosys/AgenticBlockTransfer/ontology#",
+            "ibt": "https://github.com/nervosys/IronBlockTransfer/ontology#",
             "xsd": "http://www.w3.org/2001/XMLSchema#"
         },
         "@type": "schema:SoftwareApplication",
-        "@id": "abt:AgenticBlockTransfer",
+        "@id": "ibt:IronBlockTransfer",
         "schema:name": ontology.name,
         "schema:version": ontology.version,
         "schema:description": ontology.description,
@@ -1243,18 +1243,18 @@ pub fn to_json_ld(ontology: &ToolOntology, full: bool) -> Value {
         "schema:operatingSystem": ontology.platform_support.operating_systems.iter()
             .map(|os| os.name.clone()).collect::<Vec<_>>(),
         "schema:processorRequirements": ontology.platform_support.architectures,
-        "abt:capabilities": capabilities,
-        "abt:typeDefinitions": types_json,
-        "abt:platformSupport": {
+        "ibt:capabilities": capabilities,
+        "ibt:typeDefinitions": types_json,
+        "ibt:platformSupport": {
             "operatingSystems": ontology.platform_support.operating_systems.iter().map(|os| json!({
                 "schema:name": os.name,
-                "abt:minVersion": os.min_version,
-                "abt:elevationMethod": os.elevation_method,
-                "abt:devicePathFormat": os.device_path_format,
-                "abt:notes": os.notes,
+                "ibt:minVersion": os.min_version,
+                "ibt:elevationMethod": os.elevation_method,
+                "ibt:devicePathFormat": os.device_path_format,
+                "ibt:notes": os.notes,
             })).collect::<Vec<_>>(),
         },
-        "abt:deviceScope": ontology.device_scope.categories.iter().map(|c| json!({
+        "ibt:deviceScope": ontology.device_scope.categories.iter().map(|c| json!({
             "schema:name": c.name,
             "schema:description": c.description,
             "schema:examples": c.examples,
@@ -1281,7 +1281,7 @@ mod completeness {
     /// This test exists because the ontology once declared 7 of 48 commands
     /// while presenting itself as the complete capability index. The 41 it
     /// omitted included `erase`, `clone` and `restore`, so an agent trusting
-    /// it would have concluded abt cannot destroy anything.
+    /// it would have concluded ibt cannot destroy anything.
     #[test]
     fn every_subcommand_is_declared() {
         let declared: std::collections::HashSet<String> =

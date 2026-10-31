@@ -360,7 +360,7 @@ fn ui(f: &mut Frame, app: &App) {
     let title = Block::default()
         .borders(Borders::ALL)
         .border_style(Style::default().fg(Color::Cyan))
-        .title(format!(" abt v{} ", env!("CARGO_PKG_VERSION")))
+        .title(format!(" ibt v{} ", env!("CARGO_PKG_VERSION")))
         .title_alignment(Alignment::Center);
     f.render_widget(title, chunks[0]);
 

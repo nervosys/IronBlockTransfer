@@ -7,7 +7,7 @@
 //! - EFI System Partition (ESP) detection via GPT type GUID
 //! - UEFI bootloader file presence heuristics
 //!
-//! Used by `abt info` for diagnostics and after writes for integrity checks.
+//! Used by `ibt info` for diagnostics and after writes for integrity checks.
 
 use std::io::{Read, Seek, SeekFrom};
 use std::path::Path;

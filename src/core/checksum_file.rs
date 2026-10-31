@@ -7,7 +7,7 @@
 //
 // Supports SHA-256 and SHA-512 hash formats. MD5, SHA-1, and BLAKE3 entries are
 // skipped with a warning.
-// Used for `abt verify --checksum-file SHA256SUMS` to validate downloads
+// Used for `ibt verify --checksum-file SHA256SUMS` to validate downloads
 // against distribution-provided checksum files.
 //
 // Inspired by Rufus's MD5SUMS parsing in hash.c and Ubuntu/Fedora/Debian
@@ -298,7 +298,7 @@ pub async fn fetch_checksum_file(url: &str) -> Result<ChecksumFile> {
     info!("Fetching checksum file: {}", url);
 
     let client = reqwest::Client::builder()
-        .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
         .timeout(std::time::Duration::from_secs(30))
         .build()?;
 
