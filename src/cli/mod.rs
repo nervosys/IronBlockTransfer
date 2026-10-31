@@ -4,7 +4,7 @@ pub mod commands;
 
 use clap::{Parser, Subcommand, ValueEnum};
 
-/// abt — AgenticBlockTransfer: agentic-first CLI block transfer tool.
+/// ibt — IronBlockTransfer: agentic-first CLI block transfer tool.
 ///
 /// Successor to UNIX dd (Dataset Definition) and IBM BLT (BLock Transfer).
 /// Supports writing disk images (ISO, IMG, VHD, QCOW2, raw, and compressed variants)
@@ -14,11 +14,11 @@ use clap::{Parser, Subcommand, ValueEnum};
 /// Includes an AI-discoverable ontology for agentic system integration.
 #[derive(Parser, Debug)]
 #[command(
-    name = "abt",
+    name = "ibt",
     version,
-    about = "AgenticBlockTransfer — agentic CLI + human GUI/TUI block transfer tool",
+    about = "IronBlockTransfer — agentic CLI + human GUI/TUI block transfer tool",
     long_about = None,
-    after_help = "Use 'abt ontology' to export the machine-readable capability ontology for AI agent integration."
+    after_help = "Use 'ibt ontology' to export the machine-readable capability ontology for AI agent integration."
 )]
 pub struct Args {
     #[command(subcommand)]
@@ -163,7 +163,7 @@ pub enum Command {
     #[command(visible_alias = "casper")]
     Persist(PersistOpts),
 
-    /// Check for abt updates and optionally self-update
+    /// Check for ibt updates and optionally self-update
     #[command(visible_alias = "upgrade")]
     Update(UpdateOpts),
 
@@ -330,7 +330,7 @@ pub struct WriteOpts {
     #[arg(long)]
     pub dry_run: bool,
 
-    /// Device confirmation token from `abt list --json` (prevents TOCTOU between list and write)
+    /// Device confirmation token from `ibt list --json` (prevents TOCTOU between list and write)
     #[arg(long)]
     pub confirm_token: Option<String>,
 
@@ -790,7 +790,7 @@ pub struct UpdateOpts {
     pub prerelease: bool,
 
     /// GitHub repo (owner/name) to check for updates
-    #[arg(long, default_value = "nervosys/AgenticBlockTransfer")]
+    #[arg(long, default_value = "nervosys/IronBlockTransfer")]
     pub repo: String,
 
     /// Dismiss the current latest version (hide until a newer version)

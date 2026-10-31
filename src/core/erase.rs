@@ -432,7 +432,7 @@ fn ata_secure_erase(
                 "--user-master",
                 "u",
                 "--security-set-pass",
-                "abt_erase",
+                "ibt_erase",
                 &config.device,
             ])
             .output()
@@ -449,7 +449,7 @@ fn ata_secure_erase(
                 "--user-master",
                 "u",
                 "--security-erase",
-                "abt_erase",
+                "ibt_erase",
                 &config.device,
             ])
             .output()

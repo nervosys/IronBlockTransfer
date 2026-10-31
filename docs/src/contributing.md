@@ -3,8 +3,8 @@
 ## Development Setup
 
 ```bash
-git clone https://github.com/nervosys/AgenticBlockTransfer.git
-cd AgenticBlockTransfer
+git clone https://github.com/nervosys/IronBlockTransfer.git
+cd IronBlockTransfer
 cargo build
 cargo test
 ```

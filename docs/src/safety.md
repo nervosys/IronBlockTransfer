@@ -1,6 +1,6 @@
 # Safety System
 
-`abt` is designed from the ground up to prevent accidental data loss — the #1 risk with disk imaging tools.
+`ibt` is designed from the ground up to prevent accidental data loss — the #1 risk with disk imaging tools.
 
 ## Pre-flight Safety Checks
 
@@ -29,11 +29,11 @@ Every write operation runs a structured analysis before any bytes are written:
 
 ```bash
 # Step 1: Enumerate devices, get fingerprints
-abt list --json
+ibt list --json
 # → { "devices": [{ "path": "/dev/sdb", "confirm_token": "a1b2c3d4..." }] }
 
 # Step 2: Write using token — verifies device hasn't changed
-abt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4...
+ibt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4...
 ```
 
 ## Structured Exit Codes
@@ -53,7 +53,7 @@ abt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4...
 
 ## Security Audit
 
-`abt` includes a security audit module (`core::security`) that validates:
+`ibt` includes a security audit module (`core::security`) that validates:
 
 - **Path traversal** — blocks `..` components, null bytes, control characters
 - **Symlink attacks** — detects and reports symbolic links in source/target paths

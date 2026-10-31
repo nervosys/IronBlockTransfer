@@ -1,6 +1,6 @@
 # Localization
 
-`abt` supports 12 locales with runtime language detection.
+`ibt` supports 12 locales with runtime language detection.
 
 ## Supported Locales
 
@@ -21,7 +21,7 @@
 
 ## Locale Detection
 
-`abt` auto-detects the system locale from environment variables:
+`ibt` auto-detects the system locale from environment variables:
 
 1. `LC_ALL`
 2. `LC_MESSAGES`
@@ -35,7 +35,7 @@ Load additional translations from a JSON file:
 
 ```json
 {
-  "app.name": "AgenticBlockTransfer",
+  "app.name": "IronBlockTransfer",
   "write.started": "Schreibvorgang gestartet",
   "write.complete": "Schreibvorgang abgeschlossen",
   "device.confirm": "Auf Gerät {0} schreiben? [j/N]"

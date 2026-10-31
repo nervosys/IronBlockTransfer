@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="media/image/banner_logo_01.png" alt="AgenticBlockTransfer Banner" width="800"/>
+  <img src="media/image/banner_logo_01.png" alt="IronBlockTransfer Banner" width="800"/>
   <br/>
   <b>A better dd for AI agents and humans alike for the next 50 years!</b>
 </p>
 
-**AgenticBlockTransfer** or `abt` is a cross-platform disk imaging tool that reads, writes, verifies, hashes, and formats block devices via CLI, TUI, and GUI interfaces — with native support for AI agent orchestration through JSON-LD ontology, OpenAPI, and MCP. `abt` provides both an agentic-first CLI successor to `dd` and a human-first GUI/TUI successor to balenaEtcher, Ventoy, Rufus, Fedora Media Writer, and rpi-imager.
+**IronBlockTransfer** or `ibt` is a cross-platform disk imaging tool that reads, writes, verifies, hashes, and formats block devices via CLI, TUI, and GUI interfaces — with native support for AI agent orchestration through JSON-LD ontology, OpenAPI, and MCP. `ibt` provides both an agentic-first CLI successor to `dd` and a human-first GUI/TUI successor to balenaEtcher, Ventoy, Rufus, Fedora Media Writer, and rpi-imager.
 
 <p align="center">
-  <video src="media/video/out/abt-video.mp4" width="720" controls>
+  <video src="media/video/out/ibt-video.mp4" width="720" controls>
     Your browser does not support the video tag.
   </video>
 </p>
@@ -16,14 +16,14 @@ Simple. Reliable. Safe. Efficient. Fast.
 
 ## Heritage
 
-AgenticBlockTransfer (`abt`) traces its lineage to IBM's **BLock Transfer** (BLT, pronounced "blit") — a mainframe utility for moving data between block-addressable devices. When UNIX adapted the concept, it became **Dataset Definition** (`dd`), a tool that has endured for over 50 years as the de facto standard for raw block I/O. The `dd` interface — terse, powerful, unforgiving — was designed for operators who understood the hardware.
+IronBlockTransfer (`ibt`) traces its lineage to IBM's **BLock Transfer** (BLT, pronounced "blit") — a mainframe utility for moving data between block-addressable devices. When UNIX adapted the concept, it became **Dataset Definition** (`dd`), a tool that has endured for over 50 years as the de facto standard for raw block I/O. The `dd` interface — terse, powerful, unforgiving — was designed for operators who understood the hardware.
 
-`abt` carries this heritage forward into an era of AI agents and human-centered design:
+`ibt` carries this heritage forward into an era of AI agents and human-centered design:
 
-- **For AI agents** — the CLI exposes a machine-readable [JSON-LD](https://json-ld.org/) ontology (`abt ontology`) so any agentic system can discover, parameterize, and invoke block transfer operations without human documentation. This is `dd` made natively intelligible to machines.
+- **For AI agents** — the CLI exposes a machine-readable [JSON-LD](https://json-ld.org/) ontology (`ibt ontology`) so any agentic system can discover, parameterize, and invoke block transfer operations without human documentation. This is `dd` made natively intelligible to machines.
 - **For humans** — the TUI and GUI modes provide the guided, safe experience of balenaEtcher and Rufus — device enumeration, format auto-detection, progress visualization, post-write verification — without the 500 MB Electron runtime or platform lock-in.
 
-The name **AgenticBlockTransfer** is a direct nod: *Block Transfer* from IBM's BLT, *Agentic* because the tool is built to be operated by both humans and autonomous AI systems.
+The name **IronBlockTransfer** is a direct nod: *Block Transfer* from IBM's BLT, *Agentic* because the tool is built to be operated by both humans and autonomous AI systems.
 
 ## Features
 
@@ -38,16 +38,16 @@ The name **AgenticBlockTransfer** is a direct nod: *Block Transfer* from IBM's B
 - **Three UI modes** — CLI, TUI (ratatui with built-in file browser), native GUI (egui/eframe with 6 theme presets)
 - **AI ontology** — JSON-LD / schema.org capability schema for agentic integration
 - **Broad device scope** — USB, SD, NVMe, SATA, eMMC, SPI flash, I2C EEPROM, MTD, loopback
-- **HTTP/HTTPS sources** — `abt write -i https://releases.ubuntu.com/.../ubuntu.iso -o /dev/sdb` with streaming progress
+- **HTTP/HTTPS sources** — `ibt write -i https://releases.ubuntu.com/.../ubuntu.iso -o /dev/sdb` with streaming progress
 - **Sparse writes** — skip all-zero blocks (like `dd conv=sparse`) for dramatically faster large images
 - **Signal handling** — graceful Ctrl+C with device sync (second Ctrl+C force-exits)
-- **Shell completions** — bash, zsh, fish, PowerShell via `abt completions <shell>`
+- **Shell completions** — bash, zsh, fish, PowerShell via `ibt completions <shell>`
 - **Structured logging** — JSON-structured file logging via `--log-file`
-- **Partition introspection** — GPT/MBR partition table parsing for `abt info` and safety reports
-- **Man pages** — `abt man` generates roff man pages for all commands
+- **Partition introspection** — GPT/MBR partition table parsing for `ibt info` and safety reports
+- **Man pages** — `ibt man` generates roff man pages for all commands
 - **Config file** — `~/.config/abt/config.toml` for persistent defaults (block size, verify, safety level)
 - **CI/CD** — GitHub Actions with Linux + macOS + Windows matrix, clippy, fmt, feature combinations
-- **ISO 9660 metadata** — volume label, El Torito boot detection, Joliet extensions via `abt info`
+- **ISO 9660 metadata** — volume label, El Torito boot detection, Joliet extensions via `ibt info`
 - **Native file dialog** — rfd-powered Browse / Open Image in GUI mode
 - **Desktop notifications** — OS-native toast on write completion / failure (notify-rust)
 - **Adaptive block size** — auto-tune I/O block size via sequential benchmark or device-size heuristic
@@ -57,35 +57,35 @@ The name **AgenticBlockTransfer** is a direct nod: *Block Transfer* from IBM's B
 - **QCOW2 image reader** — transparent QCOW2 v2/v3 → raw streaming (L1→L2→cluster chain)
 - **VHD/VHDX image reader** — VHD Fixed + Dynamic, VHDX header parsing, transparent → raw streaming
 - **VMDK image reader** — VMware sparse extent parsing (grain directory/table chain), transparent → raw streaming
-- **WIM metadata parser** — header, compression flags, GUID, XML image metadata, boot index via `abt info`
+- **WIM metadata parser** — header, compression flags, GUID, XML image metadata, boot index via `ibt info`
 - **Plugin/extension system** — `FormatPlugin` trait + `PluginRegistry` for custom image format handlers
 - **Memory-mapped verification** — `memmap2`-based verify with automatic fallback to standard I/O
-- **MCP server mode** — `abt mcp` exposes all capabilities via Model Context Protocol (JSON-RPC 2.0 over stdio)
-- **Device cloning** — `abt clone` for block-level device-to-device copy with inline hashing, sparse optimization, post-clone verification
-- **Secure erase** — `abt erase` with 6 methods: auto, zero-fill, random-fill, ATA Secure Erase, NVMe Sanitize, TRIM/discard; multi-pass support
-- **Boot sector validation** — `abt boot` validates MBR signature, boot code, GPT header, EFI System Partition, bootloader jump instructions
-- **Raspberry Pi OS catalog** — `abt catalog` fetches and browses the official rpi-imager OS list with search and filtering
-- **OpenAPI schema** — `abt ontology -f openapi` generates an OpenAPI 3.1 spec with 9 endpoints and 12 schemas for REST wrapper integration
-- **YAML ontology output** — `abt ontology -f yaml` exports capability schema in YAML format
+- **MCP server mode** — `ibt mcp` exposes all capabilities via Model Context Protocol (JSON-RPC 2.0 over stdio)
+- **Device cloning** — `ibt clone` for block-level device-to-device copy with inline hashing, sparse optimization, post-clone verification
+- **Secure erase** — `ibt erase` with 6 methods: auto, zero-fill, random-fill, ATA Secure Erase, NVMe Sanitize, TRIM/discard; multi-pass support
+- **Boot sector validation** — `ibt boot` validates MBR signature, boot code, GPT header, EFI System Partition, bootloader jump instructions
+- **Raspberry Pi OS catalog** — `ibt catalog` fetches and browses the official rpi-imager OS list with search and filtering
+- **OpenAPI schema** — `ibt ontology -f openapi` generates an OpenAPI 3.1 spec with 9 endpoints and 12 schemas for REST wrapper integration
+- **YAML ontology output** — `ibt ontology -f yaml` exports capability schema in YAML format
 - **FreeBSD support** — device enumeration via sysctl + geom, unmount, elevation check
 - **Async I/O (io_uring)** — Linux kernel 5.1+ io_uring with aligned double-buffered pipeline; graceful fallback on other platforms
 - **Zero-copy transfers** — splice(2) on Linux, sendfile(2) on macOS/FreeBSD; automatic fallback to buffered I/O
-- **Benchmarking suite** — `abt bench` — sequential read/write throughput at multiple block sizes, IOPS, recommended block size, JSON export
-- **Network Block Device source** — `abt write -i nbd://server:port/export -o /dev/sdb` with NBD protocol client (new-style handshake)
-- **Differential writes** — `abt diff` — block-level comparison, only writes changed blocks, dry-run mode, skip percentage reporting
+- **Benchmarking suite** — `ibt bench` — sequential read/write throughput at multiple block sizes, IOPS, recommended block size, JSON export
+- **Network Block Device source** — `ibt write -i nbd://server:port/export -o /dev/sdb` with NBD protocol client (new-style handshake)
+- **Differential writes** — `ibt diff` — block-level comparison, only writes changed blocks, dry-run mode, skip percentage reporting
 - **Parallel decompression** — pigz/pbzip2-style multi-threaded decompression pipeline (parallel block decompress for bz2/zstd, read-ahead for gz/xz)
 - **Multicast imaging** — UDP multicast sender/receiver for flashing multiple devices simultaneously; CRC32 per-chunk integrity, NAK recovery, session ID
-- **Ventoy-style multi-boot** — `abt multiboot` — multi-ISO USB with auto-detected GRUB2 config, registry management, OS type detection
+- **Ventoy-style multi-boot** — `ibt multiboot` — multi-ISO USB with auto-detected GRUB2 config, registry management, OS type detection
 - **Localization (i18n)** — 12 locales with 4 built-in message catalogs (en/de/fr/es), positional format args, auto-detect system locale
 - **Accessibility (a11y)** — 16 ARIA roles, WCAG 2.1 AA high-contrast palette, announcement queue, screen-reader hints, keyboard-only mode
-- **OS Customization** — `abt customize` generates firstrun.sh / cloud-init YAML for hostname, SSH keys, WiFi, users, timezone, locale, packages
-- **Image download cache** — `abt cache` — SHA-256 verified local download cache with eviction policies (max-age/entries/size), manifest persistence
-- **Drive health diagnostics** — `abt health` — multi-pass bad block detection (6 patterns), fake flash drive detection, quick read-only check
+- **OS Customization** — `ibt customize` generates firstrun.sh / cloud-init YAML for hostname, SSH keys, WiFi, users, timezone, locale, packages
+- **Image download cache** — `ibt cache` — SHA-256 verified local download cache with eviction policies (max-age/entries/size), manifest persistence
+- **Drive health diagnostics** — `ibt health` — multi-pass bad block detection (6 patterns), fake flash drive detection, quick read-only check
 - **Sleep inhibitor** — RAII-guarded OS sleep prevention during writes (systemd-inhibit on Linux, caffeinate on macOS, SetThreadExecutionState on Windows)
-- **Drive backup** — `abt backup` — save drive contents to compressed image with 5 formats (none/gzip/zstd/bzip2/xz), inline SHA-256, sparse zero-skip
-- **Persistent storage** — `abt persist` — create persistent storage for live Linux USB (casper/Fedora/Ventoy modes), partition or image file based
+- **Drive backup** — `ibt backup` — save drive contents to compressed image with 5 formats (none/gzip/zstd/bzip2/xz), inline SHA-256, sparse zero-skip
+- **Persistent storage** — `ibt persist` — create persistent storage for live Linux USB (casper/Fedora/Ventoy modes), partition or image file based
 - **FIPS compliance mode** — `--fips` flag or `ABT_FIPS_MODE=1` restricts to FIPS-approved algorithms (SHA-256/SHA-512), OS CSPRNG for erase, TLS 1.2+ minimum, HTTPS-only downloads
-- **Compliance self-assessment** — `abt compliance` runs NIST FIPS 140, SP 800-88, CMMC 2.0 Level 2, and DoD standard checks with JSON output for SIEM integration
+- **Compliance self-assessment** — `ibt compliance` runs NIST FIPS 140, SP 800-88, CMMC 2.0 Level 2, and DoD standard checks with JSON output for SIEM integration
 - **Structured audit trail** — HMAC-SHA256 integrity-chained security event log per CMMC AU.L2-3.3.1/3.3.8
 - **Sanitization records** — NIST SP 800-88 Rev 1 §4.7 compliant certificates for every erase operation
 - **Formal verification** — 10 Safety Invariants with Kani proof harnesses, 24 property-based tests, compile-time static assertions
@@ -97,110 +97,110 @@ The name **AgenticBlockTransfer** is a direct nod: *Block Transfer* from IBM's B
 cargo install --path .
 
 # List devices
-abt list
+ibt list
 
 # Write an image (auto-detects format, decompresses, verifies)
-abt write -i ubuntu-24.04.iso -o /dev/sdb
+ibt write -i ubuntu-24.04.iso -o /dev/sdb
 
 # Write directly from a URL (streamed download → write)
-abt write -i https://releases.ubuntu.com/24.04/ubuntu-24.04-desktop-amd64.iso -o /dev/sdb
+ibt write -i https://releases.ubuntu.com/24.04/ubuntu-24.04-desktop-amd64.iso -o /dev/sdb
 
 # Sparse write (skip zero blocks — faster for images with empty space)
-abt write -i image.raw -o /dev/sdb --sparse
+ibt write -i image.raw -o /dev/sdb --sparse
 
 # Windows
-abt write -i image.img -o \\.\PhysicalDrive1
+ibt write -i image.img -o \\.\PhysicalDrive1
 
 # Verify written data
-abt verify -i ubuntu-24.04.iso -o /dev/sdb
+ibt verify -i ubuntu-24.04.iso -o /dev/sdb
 
 # Checksum
-abt checksum image.iso
+ibt checksum image.iso
 
 # Export AI ontology
-abt ontology --full
+ibt ontology --full
 
 # Generate shell completions
-abt completions bash > /etc/bash_completion.d/abt
-abt completions powershell | Out-String | Invoke-Expression
+ibt completions bash > /etc/bash_completion.d/ibt
+ibt completions powershell | Out-String | Invoke-Expression
 
 # Generate man pages
-abt man --output-dir /usr/local/share/man/man1/
+ibt man --output-dir /usr/local/share/man/man1/
 
 # Start MCP server (for AI agent integration via Model Context Protocol)
-abt mcp
+ibt mcp
 
 # MCP single-request mode (process one JSON-RPC message and exit)
-abt mcp --oneshot
+ibt mcp --oneshot
 
 # Inspect a QCOW2 image
-abt info disk.qcow2
+ibt info disk.qcow2
 
 # Inspect a VMDK image (grain layout, embedded descriptor)
-abt info disk.vmdk
+ibt info disk.vmdk
 
 # Inspect a WIM file (compression, image count, XML metadata)
-abt info install.wim
+ibt info install.wim
 
 # Clone a device (block-level copy with verification)
-abt clone -i /dev/sda -o /dev/sdb --verify --sparse
+ibt clone -i /dev/sda -o /dev/sdb --verify --sparse
 
 # Securely erase a device (auto-selects best method)
-abt erase /dev/sdb
+ibt erase /dev/sdb
 
 # Multi-pass random erase
-abt erase /dev/sdb --method random --passes 3
+ibt erase /dev/sdb --method random --passes 3
 
 # Validate boot sector of a device or image
-abt boot /dev/sdb
-abt boot ubuntu.iso --json
+ibt boot /dev/sdb
+ibt boot ubuntu.iso --json
 
 # Browse Raspberry Pi OS catalog
-abt catalog
-abt catalog --search ubuntu --flat
+ibt catalog
+ibt catalog --search ubuntu --flat
 
 # Run compliance self-assessment
-abt compliance
+ibt compliance
 
 # Compliance report in JSON (for SIEM/auditor)
-abt compliance --json
+ibt compliance --json
 
 # Enable FIPS mode for all operations
-abt --fips write -i image.iso -o /dev/sdb
+ibt --fips write -i image.iso -o /dev/sdb
 
 # Export ontology as OpenAPI schema
-abt ontology -f openapi
-abt ontology -f yaml
+ibt ontology -f openapi
+ibt ontology -f yaml
 
 # Write from a VHD image (transparent format conversion)
-abt write -i disk.vhd -o /dev/sdb
+ibt write -i disk.vhd -o /dev/sdb
 
 # Write from a VMDK image
-abt write -i disk.vmdk -o /dev/sdb
+ibt write -i disk.vmdk -o /dev/sdb
 ```
 
 ```bash
 # Benchmark I/O throughput (find optimal block size)
-abt bench /dev/sdb --test-size 128
+ibt bench /dev/sdb --test-size 128
 
 # Benchmark specific block sizes
-abt bench /dev/sdb -b 64K -b 1M -b 4M --json
+ibt bench /dev/sdb -b 64K -b 1M -b 4M --json
 
 # Differential write (only write changed blocks)
-abt diff -i updated-image.iso -o /dev/sdb
+ibt diff -i updated-image.iso -o /dev/sdb
 
 # Differential write dry-run (see what would change)
-abt diff -i updated-image.iso -o /dev/sdb --dry-run
+ibt diff -i updated-image.iso -o /dev/sdb --dry-run
 
 # Write from a Network Block Device server
-abt write -i nbd://192.168.1.10:10809/export -o /dev/sdb
+ibt write -i nbd://192.168.1.10:10809/export -o /dev/sdb
 ```
 
-## Safety: Why abt Is Safer Than dd
+## Safety: Why ibt Is Safer Than dd
 
 `dd` will silently destroy any target — including your boot drive — with zero validation. It has two exit codes (0 and 1), no dry-run mode, and no way to confirm you're writing to the right device. For an AI agent invoking `dd`, one wrong character in a device path means catastrophic data loss with no warning and no undo.
 
-`abt` is designed from the ground up to prevent this:
+`ibt` is designed from the ground up to prevent this:
 
 ### Pre-flight Safety Checks
 
@@ -208,10 +208,10 @@ Every write operation runs a structured pre-flight analysis before any bytes are
 
 ```bash
 # See exactly what will happen without writing anything
-abt write -i ubuntu.iso -o /dev/sdb --dry-run
+ibt write -i ubuntu.iso -o /dev/sdb --dry-run
 
 # JSON output for agent consumption
-abt write -i ubuntu.iso -o /dev/sdb --dry-run -o json
+ibt write -i ubuntu.iso -o /dev/sdb --dry-run -o json
 ```
 
 The safety report checks:
@@ -235,26 +235,26 @@ The safety report checks:
 | `paranoid` | Critical ops | + requires `--confirm-token`, backs up partition table, only removable media |
 
 ```bash
-abt write -i image.iso -o /dev/sdb --safety-level cautious
-abt write -i image.iso -o /dev/sdb --safety-level paranoid --confirm-token <token>
+ibt write -i image.iso -o /dev/sdb --safety-level cautious
+ibt write -i image.iso -o /dev/sdb --safety-level paranoid --confirm-token <token>
 ```
 
 ### Device Fingerprints (TOCTOU Prevention)
 
-Agents enumerate devices and write in separate steps. Without protection, the device could change between enumeration and write. `abt` solves this with device fingerprints:
+Agents enumerate devices and write in separate steps. Without protection, the device could change between enumeration and write. `ibt` solves this with device fingerprints:
 
 ```bash
 # Step 1: Agent enumerates devices, gets fingerprints
-abt list --json
+ibt list --json
 # → { "devices": [{ "path": "/dev/sdb", ..., "confirm_token": "a1b2c3d4..." }] }
 
-# Step 2: Agent writes using the token — abt verifies the device hasn't changed
-abt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4... --safety-level cautious
+# Step 2: Agent writes using the token — ibt verifies the device hasn't changed
+ibt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4... --safety-level cautious
 ```
 
 ### Structured Exit Codes
 
-`dd` returns 0 or 1. `abt` returns specific exit codes so agents can programmatically determine exactly what went wrong:
+`dd` returns 0 or 1. `ibt` returns specific exit codes so agents can programmatically determine exactly what went wrong:
 
 | Code | Meaning                                     |
 | ---- | ------------------------------------------- |
@@ -273,14 +273,14 @@ abt write -i image.iso -o /dev/sdb --confirm-token a1b2c3d4... --safety-level ca
 
 ```bash
 # Automatic at paranoid level, optional otherwise
-abt write -i image.iso -o /dev/sdb --backup-partition-table
+ibt write -i image.iso -o /dev/sdb --backup-partition-table
 ```
 
 Saves the first 1 MiB (MBR + GPT) to a timestamped file in the system temp directory before writing.
 
-### dd vs abt Safety Comparison
+### dd vs ibt Safety Comparison
 
-| Scenario                 | dd                   | abt                                   |
+| Scenario                 | dd                   | ibt                                   |
 | ------------------------ | -------------------- | ------------------------------------- |
 | Write to system drive    | Silently destroys OS | **BLOCKED** (unless --force)          |
 | Wrong device path        | Silently overwrites  | **Pre-flight check + confirm**        |
@@ -298,7 +298,7 @@ Saves the first 1 MiB (MBR + GPT) to a timestamped file in the system temp direc
 ### From crates.io
 
 ```bash
-cargo install abt
+cargo install ibt
 ```
 
 ### From source
@@ -306,12 +306,12 @@ cargo install abt
 Requires Rust 1.70+.
 
 ```bash
-git clone https://github.com/nervosys/AgenticBlockTransfer.git
-cd AgenticBlockTransfer
+git clone https://github.com/nervosys/IronBlockTransfer.git
+cd IronBlockTransfer
 cargo build --release
 ```
 
-Binary: `target/release/abt` (`abt.exe` on Windows).
+Binary: `target/release/ibt` (`ibt.exe` on Windows).
 
 ### Feature Flags
 
@@ -361,81 +361,81 @@ cargo build --release --no-default-features --features cli
 
 ```bash
 # Basic write (auto-detects format, decompresses, verifies)
-abt write -i image.iso -o /dev/sdb
+ibt write -i image.iso -o /dev/sdb
 
 # Compressed image (auto-decompressed)
-abt write -i firmware.img.xz -o /dev/mmcblk0
+ibt write -i firmware.img.xz -o /dev/mmcblk0
 
 # Custom block size, skip verification
-abt write -i image.raw -o /dev/sdb -b 1M --no-verify
+ibt write -i image.raw -o /dev/sdb -b 1M --no-verify
 
 # Force (skip confirmation)
-abt write -i image.img -o /dev/sdb --force
+ibt write -i image.img -o /dev/sdb --force
 
 # Dry-run (safety check only, no write)
-abt write -i image.iso -o /dev/sdb --dry-run
+ibt write -i image.iso -o /dev/sdb --dry-run
 
 # Agent-safe write with device token
-abt write -i image.iso -o /dev/sdb --safety-level cautious --confirm-token <token>
+ibt write -i image.iso -o /dev/sdb --safety-level cautious --confirm-token <token>
 ```
 
 ### List Devices
 
 ```bash
-abt list                 # removable devices
-abt list --all           # all devices including system drives
-abt list --type usb      # filter by type
-abt list --json          # JSON output with device fingerprints (for agents)
+ibt list                 # removable devices
+ibt list --all           # all devices including system drives
+ibt list --type usb      # filter by type
+ibt list --json          # JSON output with device fingerprints (for agents)
 ```
 
 ### Verify
 
 ```bash
-abt verify -i image.iso -o /dev/sdb
-abt verify -o /dev/sdb --expected-hash sha256:abc123...
+ibt verify -i image.iso -o /dev/sdb
+ibt verify -o /dev/sdb --expected-hash sha256:abc123...
 ```
 
 ### Checksum
 
 ```bash
-abt checksum image.iso
-abt checksum image.iso -a sha256 -a sha512 -a crc32
+ibt checksum image.iso
+ibt checksum image.iso -a sha256 -a sha512 -a crc32
 ```
 
 ### Format
 
 ```bash
-abt format /dev/sdb -f fat32 -l "BOOT"
-abt format /dev/sdb -f ext4 --quick
+ibt format /dev/sdb -f fat32 -l "BOOT"
+ibt format /dev/sdb -f ext4 --quick
 ```
 
 ### Ontology
 
 ```bash
-abt ontology --full            # full JSON-LD ontology
-abt ontology -f json           # JSON format
-abt ontology --category verification
+ibt ontology --full            # full JSON-LD ontology
+ibt ontology -f json           # JSON format
+ibt ontology --category verification
 ```
 
 ## AI Ontology
 
-`abt ontology --full` emits a complete [JSON-LD](https://json-ld.org/) capability schema using [schema.org](https://schema.org/) vocabulary. An AI agent can call this once to learn everything it needs to operate `abt` — parameters, types, constraints, defaults, examples, exit codes, preconditions, postconditions — without reading documentation.
+`ibt ontology --full` emits a complete [JSON-LD](https://json-ld.org/) capability schema using [schema.org](https://schema.org/) vocabulary. An AI agent can call this once to learn everything it needs to operate `ibt` — parameters, types, constraints, defaults, examples, exit codes, preconditions, postconditions — without reading documentation.
 
 ```json
 {
   "@context": {
     "schema": "https://schema.org/",
-    "abt": "https://github.com/nervosys/AgenticBlockTransfer/ontology#"
+    "ibt": "https://github.com/nervosys/IronBlockTransfer/ontology#"
   },
   "@type": "schema:SoftwareApplication",
-  "@id": "abt:AgenticBlockTransfer",
-  "abt:capabilities": [
+  "@id": "ibt:IronBlockTransfer",
+  "ibt:capabilities": [
     {
       "@type": "schema:Action",
       "schema:name": "write",
-      "abt:cliCommand": "abt write",
-      "abt:destructive": true,
-      "abt:parameters": [...]
+      "ibt:cliCommand": "ibt write",
+      "ibt:destructive": true,
+      "ibt:parameters": [...]
     }
   ]
 }
@@ -548,7 +548,7 @@ The I/O engine is designed for production reliability on real hardware:
 
 ## Compared to Prior Art
 
-| Feature         | dd  | Etcher | Rufus | MediaWriter | Ventoy | rpi-imager | **abt** |
+| Feature         | dd  | Etcher | Rufus | MediaWriter | Ventoy | rpi-imager | **ibt** |
 | --------------- | --- | ------ | ----- | ----------- | ------ | ---------- | ------- |
 | CLI             | ✅   | —      | —     | —           | ✅      | —          | ✅       |
 | TUI             | —   | —      | —     | —           | —      | —          | ✅       |

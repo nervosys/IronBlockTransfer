@@ -1,4 +1,4 @@
-// CLI command: abt update — check for new versions of abt.
+// CLI command: ibt update — check for new versions of ibt.
 
 use anyhow::Result;
 
@@ -27,7 +27,7 @@ pub async fn execute(opts: UpdateOpts) -> Result<()> {
             );
         } else {
             println!(
-                "No update to dismiss — abt is up to date (v{})",
+                "No update to dismiss — ibt is up to date (v{})",
                 result.current_version
             );
         }
@@ -71,7 +71,7 @@ pub async fn execute(opts: UpdateOpts) -> Result<()> {
             }
         }
     } else {
-        println!("✓ abt is up to date");
+        println!("✓ ibt is up to date");
     }
 
     Ok(())

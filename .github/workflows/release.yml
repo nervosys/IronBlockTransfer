@@ -28,24 +28,24 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            artifact: abt-linux-x64
-            binary: abt
+            artifact: ibt-linux-x64
+            binary: ibt
           - os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
-            artifact: abt-linux-arm64
-            binary: abt
+            artifact: ibt-linux-arm64
+            binary: ibt
           - os: macos-latest
             target: x86_64-apple-darwin
-            artifact: abt-macos-x64
-            binary: abt
+            artifact: ibt-macos-x64
+            binary: ibt
           - os: macos-latest
             target: aarch64-apple-darwin
-            artifact: abt-macos-arm64
-            binary: abt
+            artifact: ibt-macos-arm64
+            binary: ibt
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            artifact: abt-windows-x64
-            binary: abt.exe
+            artifact: ibt-windows-x64
+            binary: ibt.exe
     steps:
       - uses: actions/checkout@v4
 
@@ -119,7 +119,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          for binary in artifacts/*/abt artifacts/*/abt.exe; do
+          for binary in artifacts/*/ibt artifacts/*/ibt.exe; do
             if [ -f "$binary" ]; then
               echo "$GPG_PASSPHRASE" | gpg --batch --yes --passphrase-fd 0 \
                 --detach-sign --armor "$binary"
@@ -149,16 +149,16 @@ jobs:
       - name: Prepare release assets
         run: |
           mkdir -p release
-          for dir in artifacts/abt-*; do
+          for dir in artifacts/ibt-*; do
             name=$(basename "$dir")
             if ls "$dir"/*.exe 1>/dev/null 2>&1; then
-              cp "$dir"/abt.exe "release/${name}.exe"
-              cp "$dir"/abt.exe.sha256 "release/${name}.exe.sha256" 2>/dev/null || true
-              cp "$dir"/abt.exe.asc "release/${name}.exe.asc" 2>/dev/null || true
+              cp "$dir"/ibt.exe "release/${name}.exe"
+              cp "$dir"/ibt.exe.sha256 "release/${name}.exe.sha256" 2>/dev/null || true
+              cp "$dir"/ibt.exe.asc "release/${name}.exe.asc" 2>/dev/null || true
             else
-              cp "$dir"/abt "release/${name}"
-              cp "$dir"/abt.sha256 "release/${name}.sha256" 2>/dev/null || true
-              cp "$dir"/abt.asc "release/${name}.asc" 2>/dev/null || true
+              cp "$dir"/ibt "release/${name}"
+              cp "$dir"/ibt.sha256 "release/${name}.sha256" 2>/dev/null || true
+              cp "$dir"/ibt.asc "release/${name}.asc" 2>/dev/null || true
             fi
           done
           ls -la release/

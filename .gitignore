@@ -22,7 +22,7 @@ node_modules/
 
 # Video build intermediate files (keep final outputs)
 media/video/out/*
-!media/video/out/abt-video.mp4
+!media/video/out/ibt-video.mp4
 
 # Temp files
 build_errors.txt*.bak

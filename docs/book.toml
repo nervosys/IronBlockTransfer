@@ -1,7 +1,7 @@
 [book]
-title = "AgenticBlockTransfer (abt) Documentation"
+title = "IronBlockTransfer (ibt) Documentation"
 authors = ["nervosys"]
-description = "Comprehensive documentation for the abt disk imaging tool"
+description = "Comprehensive documentation for the ibt disk imaging tool"
 language = "en"
 src = "src"
 
@@ -12,6 +12,6 @@ create-missing = false
 [output.html]
 default-theme = "navy"
 preferred-dark-theme = "navy"
-git-repository-url = "https://github.com/nervosys/AgenticBlockTransfer"
-edit-url-template = "https://github.com/nervosys/AgenticBlockTransfer/edit/main/docs/{path}"
-site-url = "/AgenticBlockTransfer/"
+git-repository-url = "https://github.com/nervosys/IronBlockTransfer"
+edit-url-template = "https://github.com/nervosys/IronBlockTransfer/edit/main/docs/{path}"
+site-url = "/IronBlockTransfer/"

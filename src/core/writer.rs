@@ -336,7 +336,7 @@ impl Writer {
         let actual = hasher.finalize_hex();
 
         if actual != expected {
-            return Err(super::error::AbtError::ChecksumMismatch {
+            return Err(super::error::IbtError::ChecksumMismatch {
                 expected: expected.to_string(),
                 actual,
             }

@@ -1,4 +1,4 @@
-// AgenticBlockTransfer (abt) — Cross-platform agentic block transfer
+// IronBlockTransfer (ibt) — Cross-platform agentic block transfer
 // Copyright (c) nervosys. Licensed under MIT OR Apache-2.0.
 
 use anyhow::Result;
@@ -9,19 +9,19 @@ use std::sync::Arc;
 // The modules live in the library crate; the binary is a thin front end over it.
 // Declaring them here as well compiled every module twice, and the binary's copy
 // flagged library APIs it does not call as dead code.
-use abt::{cli, core, mcp};
+use ibt::{cli, core, mcp};
 
 #[cfg(feature = "tui")]
-use abt::tui;
+use ibt::tui;
 
 #[cfg(feature = "gui")]
-use abt::gui;
+use ibt::gui;
 
 use cli::Args;
 use core::progress::Progress;
 
 /// Sets up a JSON-structured log file. Returns a guard that flushes on drop.
-/// Each line is a JSON object: {"ts":"...","level":"INFO","target":"abt::core::writer","msg":"..."}
+/// Each line is a JSON object: {"ts":"...","level":"INFO","target":"ibt::core::writer","msg":"..."}
 fn setup_file_logger(path: &str) -> Result<std::fs::File> {
     use std::io::Write;
     let file = std::fs::OpenOptions::new()
@@ -33,7 +33,7 @@ fn setup_file_logger(path: &str) -> Result<std::fs::File> {
     let mut f = file.try_clone()?;
     writeln!(
         f,
-        "{{\"ts\":\"{}\",\"level\":\"INFO\",\"target\":\"abt\",\"msg\":\"Log session started — abt v{}\"}}",
+        "{{\"ts\":\"{}\",\"level\":\"INFO\",\"target\":\"ibt\",\"msg\":\"Log session started — ibt v{}\"}}",
         chrono::Utc::now().to_rfc3339(),
         env!("CARGO_PKG_VERSION")
     )?;
@@ -78,7 +78,7 @@ async fn main() -> Result<()> {
         None
     };
 
-    info!("abt v{}", env!("CARGO_PKG_VERSION"));
+    info!("ibt v{}", env!("CARGO_PKG_VERSION"));
 
     // ── FIPS Compliance Mode ───────────────────────────────────────────────
     // Initialize from environment variable first, then CLI flag overrides.
@@ -154,7 +154,7 @@ async fn main() -> Result<()> {
                 let findings = core::compliance::self_assessment();
                 let json = serde_json::json!({
                     "compliance_report": {
-                        "tool": "abt",
+                        "tool": "ibt",
                         "version": env!("CARGO_PKG_VERSION"),
                         "fips_mode": core::compliance::is_fips_mode(),
                         "findings": findings,

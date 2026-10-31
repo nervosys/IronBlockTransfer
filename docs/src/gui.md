@@ -3,7 +3,7 @@
 Launch the native graphical interface:
 
 ```bash
-abt gui
+ibt gui
 ```
 
 ## 3-Step Wizard

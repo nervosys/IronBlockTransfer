@@ -1,6 +1,6 @@
 // HTTP/HTTPS download module — streaming download with progress tracking.
 //
-// Enables `abt write -i https://releases.ubuntu.com/.../ubuntu.iso -o /dev/sdb`
+// Enables `ibt write -i https://releases.ubuntu.com/.../ubuntu.iso -o /dev/sdb`
 // by downloading the image to a temp file with real-time progress, then handing
 // the local path to the write engine. Supports:
 //   - HTTPS (via rustls, no OpenSSL dependency)

@@ -106,7 +106,7 @@ pub async fn fetch_catalog() -> Result<OsCatalog> {
 /// Fetch an OS catalog from a custom URL (used for sub-lists too).
 pub async fn fetch_catalog_from(url: &str) -> Result<OsCatalog> {
     let client = reqwest::Client::builder()
-        .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
         .timeout(std::time::Duration::from_secs(60))
         .connect_timeout(std::time::Duration::from_secs(15))
         .build()?;

@@ -11,10 +11,10 @@
 use std::io::Write;
 use tempfile::NamedTempFile;
 
-use abt::core::hasher::{hash_file, hash_reader};
-use abt::core::image::{detect_format, get_image_info};
-use abt::core::progress::Progress;
-use abt::core::types::{HashAlgorithm, ImageFormat};
+use ibt::core::hasher::{hash_file, hash_reader};
+use ibt::core::image::{detect_format, get_image_info};
+use ibt::core::progress::Progress;
+use ibt::core::types::{HashAlgorithm, ImageFormat};
 
 mod integration {
     use super::*;
@@ -101,7 +101,7 @@ mod integration {
         assert_eq!(fmt, ImageFormat::Gz);
 
         // Decompress via open_image and hash
-        let mut reader = abt::core::image::open_image(compressed.path()).unwrap();
+        let mut reader = ibt::core::image::open_image(compressed.path()).unwrap();
         let progress2 = Progress::new(0);
         let decompressed_hash =
             hash_reader(&mut reader, HashAlgorithm::Sha256, &progress2).unwrap();
@@ -133,7 +133,7 @@ mod integration {
         let fmt = detect_format(compressed.path()).unwrap();
         assert_eq!(fmt, ImageFormat::Xz);
 
-        let mut reader = abt::core::image::open_image(compressed.path()).unwrap();
+        let mut reader = ibt::core::image::open_image(compressed.path()).unwrap();
         let progress2 = Progress::new(0);
         let decompressed_hash =
             hash_reader(&mut reader, HashAlgorithm::Sha256, &progress2).unwrap();
@@ -164,7 +164,7 @@ mod integration {
         let fmt = detect_format(compressed.path()).unwrap();
         assert_eq!(fmt, ImageFormat::Bz2);
 
-        let mut reader = abt::core::image::open_image(compressed.path()).unwrap();
+        let mut reader = ibt::core::image::open_image(compressed.path()).unwrap();
         let progress2 = Progress::new(0);
         let decompressed_hash =
             hash_reader(&mut reader, HashAlgorithm::Sha256, &progress2).unwrap();
@@ -195,7 +195,7 @@ mod integration {
         let fmt = detect_format(compressed.path()).unwrap();
         assert_eq!(fmt, ImageFormat::Zstd);
 
-        let mut reader = abt::core::image::open_image(compressed.path()).unwrap();
+        let mut reader = ibt::core::image::open_image(compressed.path()).unwrap();
         let progress2 = Progress::new(0);
         let decompressed_hash =
             hash_reader(&mut reader, HashAlgorithm::Sha256, &progress2).unwrap();
@@ -242,7 +242,7 @@ mod integration {
 
     #[test]
     fn parse_mbr_image() {
-        use abt::core::partition::parse_mbr;
+        use ibt::core::partition::parse_mbr;
 
         // Create a minimal disk image with an MBR
         let mut img = [0u8; 1024];
@@ -267,7 +267,7 @@ mod integration {
 
     #[test]
     fn partition_info_from_file() {
-        use abt::core::partition::read_partition_info;
+        use ibt::core::partition::read_partition_info;
 
         let mut f = NamedTempFile::new().unwrap();
         let mut img = vec![0u8; 2048]; // 4 sectors minimum
@@ -285,7 +285,7 @@ mod integration {
         f.flush().unwrap();
 
         let info = read_partition_info(f.path()).unwrap();
-        assert_eq!(info.scheme, abt::core::partition::PartitionScheme::Mbr);
+        assert_eq!(info.scheme, ibt::core::partition::PartitionScheme::Mbr);
         assert!(info.gpt.is_none());
         let mbr = info.mbr.unwrap();
         assert_eq!(mbr.partitions[0].type_name, "Linux");
@@ -295,7 +295,7 @@ mod integration {
 
     #[test]
     fn config_load_from_file() {
-        use abt::core::config::Config;
+        use ibt::core::config::Config;
 
         let mut f = NamedTempFile::with_suffix(".toml").unwrap();
         f.write_all(
@@ -334,7 +334,7 @@ verbose = 4
 
     #[test]
     fn verify_against_known_hash() {
-        use abt::core::verifier::verify_against_hash;
+        use ibt::core::verifier::verify_against_hash;
 
         let mut f = NamedTempFile::new().unwrap();
         f.write_all(b"hello").unwrap();
@@ -355,7 +355,7 @@ verbose = 4
 
     #[test]
     fn verify_against_wrong_hash() {
-        use abt::core::verifier::verify_against_hash;
+        use ibt::core::verifier::verify_against_hash;
 
         let mut f = NamedTempFile::new().unwrap();
         f.write_all(b"hello").unwrap();
@@ -375,7 +375,7 @@ verbose = 4
 
     #[test]
     fn verify_with_size_limit() {
-        use abt::core::verifier::verify_against_hash;
+        use ibt::core::verifier::verify_against_hash;
 
         let mut f = NamedTempFile::new().unwrap();
         f.write_all(b"hello world extra data that should be ignored")
@@ -397,7 +397,7 @@ verbose = 4
 
     #[test]
     fn verify_by_hash_matching_files() {
-        use abt::core::verifier::verify_by_hash;
+        use ibt::core::verifier::verify_by_hash;
 
         let mut source = NamedTempFile::new().unwrap();
         source.write_all(b"test data for verify_by_hash").unwrap();
@@ -422,7 +422,7 @@ verbose = 4
 
     #[test]
     fn progress_pipeline_simulation() {
-        use abt::core::progress::OperationPhase;
+        use ibt::core::progress::OperationPhase;
 
         let progress = Progress::new(1024);
         assert_eq!(progress.snapshot().phase, OperationPhase::Preparing);

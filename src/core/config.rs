@@ -1,7 +1,7 @@
-//! Configuration file support for abt.
+//! Configuration file support for ibt.
 //!
 //! Loads user preferences from `~/.config/abt/config.toml` (Linux/macOS)
-//! or `%APPDATA%\abt\config.toml` (Windows). All settings are optional
+//! or `%APPDATA%\ibt\config.toml` (Windows). All settings are optional
 //! and serve as defaults that can be overridden by CLI flags.
 //!
 //! # Example config.toml
@@ -175,7 +175,7 @@ impl Config {
 /// Get the platform-specific configuration file path.
 ///
 /// - Linux/macOS: `~/.config/abt/config.toml`
-/// - Windows: `%APPDATA%\abt\config.toml`
+/// - Windows: `%APPDATA%\ibt\config.toml`
 pub fn config_path() -> Option<PathBuf> {
     dirs::config_dir().map(|d| d.join("abt").join("config.toml"))
 }

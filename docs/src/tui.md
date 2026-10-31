@@ -3,7 +3,7 @@
 Launch the interactive terminal UI with:
 
 ```bash
-abt tui
+ibt tui
 ```
 
 ## Navigation

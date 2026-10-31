@@ -10,11 +10,11 @@
 use proptest::prelude::*;
 use std::io::Cursor;
 
-use abt::core::device::DeviceInfo;
-use abt::core::hasher::hash_reader;
-use abt::core::progress::{OperationPhase, Progress};
-use abt::core::safety::{DeviceFingerprint, SafetyLevel};
-use abt::core::types::*;
+use ibt::core::device::DeviceInfo;
+use ibt::core::hasher::hash_reader;
+use ibt::core::progress::{OperationPhase, Progress};
+use ibt::core::safety::{DeviceFingerprint, SafetyLevel};
+use ibt::core::types::*;
 
 // ════════════════════════════════════════════════════════════════════════════════
 // SI-1: System Drive Protection
@@ -202,23 +202,23 @@ proptest! {
     /// SI-3: heuristic_block_size returns values within [MIN, MAX] for all device sizes.
     #[test]
     fn si3_block_size_always_bounded(device_size: u64) {
-        let bs = abt::core::blocksize::heuristic_block_size(device_size);
+        let bs = ibt::core::blocksize::heuristic_block_size(device_size);
         prop_assert!(
-            bs >= abt::core::blocksize::MIN_BLOCK_SIZE,
+            bs >= ibt::core::blocksize::MIN_BLOCK_SIZE,
             "SI-3 VIOLATION: heuristic({}) = {} < MIN ({})",
-            device_size, bs, abt::core::blocksize::MIN_BLOCK_SIZE
+            device_size, bs, ibt::core::blocksize::MIN_BLOCK_SIZE
         );
         prop_assert!(
-            bs <= abt::core::blocksize::MAX_BLOCK_SIZE,
+            bs <= ibt::core::blocksize::MAX_BLOCK_SIZE,
             "SI-3 VIOLATION: heuristic({}) = {} > MAX ({})",
-            device_size, bs, abt::core::blocksize::MAX_BLOCK_SIZE
+            device_size, bs, ibt::core::blocksize::MAX_BLOCK_SIZE
         );
     }
 
     /// SI-3: Block size is always a power of two.
     #[test]
     fn si3_block_size_power_of_two(device_size: u64) {
-        let bs = abt::core::blocksize::heuristic_block_size(device_size);
+        let bs = ibt::core::blocksize::heuristic_block_size(device_size);
         prop_assert!(
             bs.is_power_of_two(),
             "SI-3 VIOLATION: heuristic({}) = {} is not a power of two",
@@ -233,8 +233,8 @@ proptest! {
         delta in 0u64..=u64::MAX/2
     ) {
         let size_b = size_a.saturating_add(delta);
-        let bs_a = abt::core::blocksize::heuristic_block_size(size_a);
-        let bs_b = abt::core::blocksize::heuristic_block_size(size_b);
+        let bs_a = ibt::core::blocksize::heuristic_block_size(size_a);
+        let bs_b = ibt::core::blocksize::heuristic_block_size(size_b);
         prop_assert!(
             bs_b >= bs_a,
             "SI-3 VIOLATION: heuristic not monotonic: h({}) = {} > h({}) = {}",
@@ -596,7 +596,7 @@ proptest! {
 
         let progress = Progress::new(data.len() as u64);
 
-        let file_hash = abt::core::hasher::hash_file(f.path(), algo, &progress).unwrap();
+        let file_hash = ibt::core::hasher::hash_file(f.path(), algo, &progress).unwrap();
         let reader_hash = hash_reader(&mut Cursor::new(&data), algo, &progress).unwrap();
 
         prop_assert_eq!(

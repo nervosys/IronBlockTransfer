@@ -1,20 +1,20 @@
 // MCP (Model Context Protocol) server — JSON-RPC 2.0 over stdio
 //
-// Exposes abt capabilities as MCP tools so that AI agents can discover and
+// Exposes ibt capabilities as MCP tools so that AI agents can discover and
 // invoke block-transfer operations through the standard MCP protocol.
 //
-// Usage:  abt mcp            (starts stdio JSON-RPC server)
-//         abt mcp --oneshot  (process a single request and exit)
+// Usage:  ibt mcp            (starts stdio JSON-RPC server)
+//         ibt mcp --oneshot  (process a single request and exit)
 //
 // Protocol: https://modelcontextprotocol.io/specification
 //
 // Tools exposed:
-//   abt_list_devices   — enumerate block devices
-//   abt_info            — inspect image or device
-//   abt_checksum        — compute file/device hash
-//   abt_write           — write image to device (destructive)
-//   abt_verify          — verify written data
-//   abt_format          — format device with filesystem (destructive)
+//   ibt_list_devices   — enumerate block devices
+//   ibt_info            — inspect image or device
+//   ibt_checksum        — compute file/device hash
+//   ibt_write           — write image to device (destructive)
+//   ibt_verify          — verify written data
+//   ibt_format          — format device with filesystem (destructive)
 
 #![allow(dead_code)]
 
@@ -26,7 +26,7 @@ use std::io::{self, BufRead, Write};
 const MCP_PROTOCOL_VERSION: &str = "2024-11-05";
 
 /// Server info returned in initialize response.
-const SERVER_NAME: &str = "abt";
+const SERVER_NAME: &str = "ibt";
 
 // ─── JSON-RPC Types ────────────────────────────────────────────────────────
 
@@ -94,7 +94,7 @@ impl JsonRpcResponse {
 fn tool_definitions() -> Value {
     json!([
         {
-            "name": "abt_list_devices",
+            "name": "ibt_list_devices",
             "description": "List available block devices / storage targets. Returns device paths, sizes, types, and whether they are removable or system drives.",
             "inputSchema": {
                 "type": "object",
@@ -119,7 +119,7 @@ fn tool_definitions() -> Value {
             }
         },
         {
-            "name": "abt_info",
+            "name": "ibt_info",
             "description": "Show detailed information about a device or image file. For images: format, size, compression, ISO metadata, QCOW2/VHD headers. For devices: type, size, partitions.",
             "inputSchema": {
                 "type": "object",
@@ -133,7 +133,7 @@ fn tool_definitions() -> Value {
             }
         },
         {
-            "name": "abt_checksum",
+            "name": "ibt_checksum",
             "description": "Compute cryptographic hash of a file or device. Supports SHA-256, SHA-512, CRC32.",
             "inputSchema": {
                 "type": "object",
@@ -153,7 +153,7 @@ fn tool_definitions() -> Value {
             }
         },
         {
-            "name": "abt_write",
+            "name": "ibt_write",
             "description": "Write an image to a target device or file. DESTRUCTIVE: all data on the target will be overwritten. Supports raw, compressed (gz/bz2/xz/zstd/zip), ISO, QCOW2, and VHD formats.",
             "inputSchema": {
                 "type": "object",
@@ -207,7 +207,7 @@ fn tool_definitions() -> Value {
             }
         },
         {
-            "name": "abt_verify",
+            "name": "ibt_verify",
             "description": "Verify written data against source image or expected hash value.",
             "inputSchema": {
                 "type": "object",
@@ -234,7 +234,7 @@ fn tool_definitions() -> Value {
             }
         },
         {
-            "name": "abt_format",
+            "name": "ibt_format",
             "description": "Format a device with a filesystem. DESTRUCTIVE: all data will be erased. Supports FAT16, FAT32, exFAT, NTFS, ext2/3/4, XFS, Btrfs.",
             "inputSchema": {
                 "type": "object",
@@ -353,12 +353,12 @@ impl McpServer {
     /// Execute a tool and return the MCP content result.
     fn execute_tool(&self, name: &str, args: &Value) -> Value {
         match name {
-            "abt_list_devices" => self.tool_list_devices(args),
-            "abt_info" => self.tool_info(args),
-            "abt_checksum" => self.tool_checksum(args),
-            "abt_write" => self.tool_write(args),
-            "abt_verify" => self.tool_verify(args),
-            "abt_format" => self.tool_format(args),
+            "ibt_list_devices" => self.tool_list_devices(args),
+            "ibt_info" => self.tool_info(args),
+            "ibt_checksum" => self.tool_checksum(args),
+            "ibt_write" => self.tool_write(args),
+            "ibt_verify" => self.tool_verify(args),
+            "ibt_format" => self.tool_format(args),
             _ => json!({
                 "content": [{
                     "type": "text",
@@ -379,7 +379,7 @@ impl McpServer {
             .unwrap_or(false);
 
         // Build the equivalent CLI command
-        let mut cmd_parts = vec!["abt", "list", "--json"];
+        let mut cmd_parts = vec!["ibt", "list", "--json"];
         if all {
             cmd_parts.push("--all");
         }
@@ -397,7 +397,7 @@ impl McpServer {
                 return self.error_content("Missing required parameter: path");
             }
         };
-        self.execute_cli_and_capture(&["abt", "info", path])
+        self.execute_cli_and_capture(&["ibt", "info", path])
     }
 
     fn tool_checksum(&self, args: &Value) -> Value {
@@ -412,7 +412,7 @@ impl McpServer {
             .and_then(|v| v.as_str())
             .unwrap_or("sha256");
 
-        self.execute_cli_and_capture(&["abt", "checksum", path, "-a", algorithm])
+        self.execute_cli_and_capture(&["ibt", "checksum", path, "-a", algorithm])
     }
 
     fn tool_write(&self, args: &Value) -> Value {
@@ -426,7 +426,7 @@ impl McpServer {
         };
 
         let mut cmd_parts: Vec<String> = vec![
-            "abt".into(),
+            "ibt".into(),
             "write".into(),
             "-i".into(),
             source.into(),
@@ -467,7 +467,7 @@ impl McpServer {
         };
 
         let mut cmd_parts: Vec<String> =
-            vec!["abt".into(), "verify".into(), "-o".into(), target.into()];
+            vec!["ibt".into(), "verify".into(), "-o".into(), target.into()];
 
         if let Some(source) = args.get("source").and_then(|v| v.as_str()) {
             cmd_parts.extend_from_slice(&["-i".into(), source.into()]);
@@ -494,7 +494,7 @@ impl McpServer {
         };
 
         let mut cmd_parts: Vec<String> = vec![
-            "abt".into(),
+            "ibt".into(),
             "format".into(),
             device.into(),
             "-f".into(),
@@ -518,14 +518,14 @@ impl McpServer {
     // ── Helpers ────────────────────────────────────────────────────────
 
     /// Execute a CLI command as a subprocess and capture its output.
-    /// In production, this spawns `abt` as a child process.
+    /// In production, this spawns `ibt` as a child process.
     /// Returns MCP-formatted content.
     fn execute_cli_and_capture(&self, args: &[&str]) -> Value {
         use std::process::Command;
 
-        let exe = std::env::current_exe().unwrap_or_else(|_| "abt".into());
+        let exe = std::env::current_exe().unwrap_or_else(|_| "ibt".into());
         let result = Command::new(&exe)
-            .args(&args[1..]) // skip "abt"
+            .args(&args[1..]) // skip "ibt"
             .arg("-o")
             .arg("json")
             .output();
@@ -660,12 +660,12 @@ mod tests {
 
         // Verify tool names
         let names: Vec<&str> = tools.iter().map(|t| t["name"].as_str().unwrap()).collect();
-        assert!(names.contains(&"abt_list_devices"));
-        assert!(names.contains(&"abt_write"));
-        assert!(names.contains(&"abt_verify"));
-        assert!(names.contains(&"abt_checksum"));
-        assert!(names.contains(&"abt_info"));
-        assert!(names.contains(&"abt_format"));
+        assert!(names.contains(&"ibt_list_devices"));
+        assert!(names.contains(&"ibt_write"));
+        assert!(names.contains(&"ibt_verify"));
+        assert!(names.contains(&"ibt_checksum"));
+        assert!(names.contains(&"ibt_info"));
+        assert!(names.contains(&"ibt_format"));
     }
 
     #[test]

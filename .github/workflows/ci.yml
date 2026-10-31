@@ -86,11 +86,11 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           - os: ubuntu-latest
-            artifact: abt
+            artifact: ibt
           - os: macos-latest
-            artifact: abt
+            artifact: ibt
           - os: windows-latest
-            artifact: abt.exe
+            artifact: ibt.exe
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -98,7 +98,7 @@ jobs:
       - run: cargo build --release --all-features
       - uses: actions/upload-artifact@v4
         with:
-          name: abt-${{ matrix.os }}
+          name: ibt-${{ matrix.os }}
           path: target/release/${{ matrix.artifact }}
 
   msrv:

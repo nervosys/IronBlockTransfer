@@ -401,7 +401,7 @@ pub async fn fetch_catalog(
     info!("Fetching catalog from: {}", url);
 
     let client = reqwest::Client::builder()
-        .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+        .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
         .timeout(std::time::Duration::from_secs(30))
         .build()?;
 

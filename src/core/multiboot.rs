@@ -45,7 +45,7 @@ impl Default for MultibootRegistry {
     fn default() -> Self {
         Self {
             version: 1,
-            label: "ABT Multiboot".into(),
+            label: "IBT Multiboot".into(),
             created: chrono::Utc::now().to_rfc3339(),
             modified: chrono::Utc::now().to_rfc3339(),
             images: Vec::new(),
@@ -367,7 +367,7 @@ pub fn list_images(mount_point: &Path) -> Result<Vec<MultibootImage>> {
 pub fn generate_grub_config(registry: &MultibootRegistry) -> String {
     let mut cfg = String::new();
 
-    cfg.push_str("# ABT Multiboot — Auto-generated GRUB configuration\n");
+    cfg.push_str("# IBT Multiboot — Auto-generated GRUB configuration\n");
     cfg.push_str(&format!(
         "# Generated: {}\n",
         chrono::Utc::now().to_rfc3339()

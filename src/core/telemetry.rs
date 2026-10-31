@@ -9,7 +9,7 @@
 //   - Session-level statistics for telemetry upload
 //
 // This module provides generic performance tracking that can be attached
-// to any long-running abt operation (write, clone, backup, restore).
+// to any long-running ibt operation (write, clone, backup, restore).
 // No data is sent externally unless explicitly configured.
 
 #![allow(dead_code)]
@@ -168,8 +168,8 @@ impl PhaseThroughput {
 pub struct TelemetryReport {
     /// Session identifier.
     pub session_id: String,
-    /// abt version.
-    pub abt_version: String,
+    /// ibt version.
+    pub ibt_version: String,
     /// Platform (os/arch).
     pub platform: String,
     /// Operation type (write, clone, backup, etc.).
@@ -407,7 +407,7 @@ impl TelemetrySession {
 
         TelemetryReport {
             session_id: self.session_id.clone(),
-            abt_version: env!("CARGO_PKG_VERSION").to_string(),
+            ibt_version: env!("CARGO_PKG_VERSION").to_string(),
             platform: format!("{}/{}", std::env::consts::OS, std::env::consts::ARCH),
             operation: self.operation.clone(),
             start_time: chrono::Utc::now().to_rfc3339(),
@@ -587,7 +587,7 @@ fn format_bytes_human(bytes: u64) -> String {
 // All data is keyed by a random per-session UUID.
 
 /// CloudWatch metric namespace.
-const CLOUDWATCH_NAMESPACE: &str = "ABT/Usage";
+const CLOUDWATCH_NAMESPACE: &str = "IBT/Usage";
 
 /// AWS region for telemetry endpoint.
 const CLOUDWATCH_REGION: &str = "us-east-1";
@@ -1326,7 +1326,7 @@ mod tests {
         }];
         let payload = build_cloudwatch_payload(&events);
         assert!(payload.contains("Action=PutMetricData"));
-        assert!(payload.contains("Namespace=ABT/Usage"));
+        assert!(payload.contains("Namespace=IBT/Usage"));
         assert!(payload.contains("MetricName=command_invoked"));
         assert!(payload.contains("Value=1"));
     }

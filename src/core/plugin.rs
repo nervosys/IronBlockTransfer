@@ -41,7 +41,7 @@ pub trait FormatPlugin: Send + Sync {
     fn open(&self, path: &Path) -> Result<Box<dyn Read + Send>>;
 
     /// Return metadata about the image as key-value pairs.
-    /// Used by `abt info` to display format-specific details.
+    /// Used by `ibt info` to display format-specific details.
     fn metadata(&self, path: &Path) -> Result<Vec<(String, String)>> {
         let _ = path;
         Ok(Vec::new())

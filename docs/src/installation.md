@@ -5,50 +5,50 @@
 Requires Rust 1.75+.
 
 ```bash
-git clone https://github.com/nervosys/AgenticBlockTransfer.git
-cd AgenticBlockTransfer
+git clone https://github.com/nervosys/IronBlockTransfer.git
+cd IronBlockTransfer
 cargo build --release
 ```
 
-Binary: `target/release/abt` (`abt.exe` on Windows).
+Binary: `target/release/ibt` (`ibt.exe` on Windows).
 
 ## Package Managers
 
 ### Cargo (crates.io)
 
 ```bash
-cargo install abt
+cargo install ibt
 ```
 
 ### Homebrew (macOS/Linux)
 
 ```bash
 brew tap nervosys/tap
-brew install abt
+brew install ibt
 ```
 
 ### Winget (Windows)
 
 ```powershell
-winget install nervosys.abt
+winget install nervosys.ibt
 ```
 
 ### Arch Linux (AUR)
 
 ```bash
-yay -S abt
+yay -S ibt
 ```
 
 ### Debian/Ubuntu
 
 ```bash
-sudo dpkg -i abt_1.0.0_amd64.deb
+sudo dpkg -i ibt_1.0.0_amd64.deb
 ```
 
 ### Fedora/RHEL
 
 ```bash
-sudo rpm -i abt-1.0.0-1.x86_64.rpm
+sudo rpm -i ibt-1.0.0-1.x86_64.rpm
 ```
 
 ## Feature Flags
@@ -69,20 +69,20 @@ cargo build --release --no-default-features --features cli
 
 ```bash
 # Bash
-abt completions bash > /etc/bash_completion.d/abt
+ibt completions bash > /etc/bash_completion.d/ibt
 
 # Zsh
-abt completions zsh > ~/.zsh/completions/_abt
+ibt completions zsh > ~/.zsh/completions/_ibt
 
 # Fish
-abt completions fish > ~/.config/fish/completions/abt.fish
+ibt completions fish > ~/.config/fish/completions/ibt.fish
 
 # PowerShell
-abt completions powershell | Out-String | Invoke-Expression
+ibt completions powershell | Out-String | Invoke-Expression
 ```
 
 ## Man Pages
 
 ```bash
-abt man --output-dir /usr/local/share/man/man1/
+ibt man --output-dir /usr/local/share/man/man1/
 ```

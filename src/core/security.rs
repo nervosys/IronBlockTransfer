@@ -169,7 +169,7 @@ impl SecurityAuditReport {
 
     pub fn format_text(&self) -> String {
         let mut out = String::new();
-        out.push_str(&format!("Security Audit Report — abt v{}\n", self.version));
+        out.push_str(&format!("Security Audit Report — ibt v{}\n", self.version));
         out.push_str(&format!("Timestamp: {}\n", self.timestamp));
         out.push_str(&format!(
             "Result: {}\n\n",
@@ -525,7 +525,7 @@ pub fn audit_privileges() -> Vec<SecurityFinding> {
                     "Real UID ({}) differs from effective UID ({}) — setuid binary",
                     uid, euid
                 ),
-                "Avoid running abt as a setuid binary; use sudo instead",
+                "Avoid running ibt as a setuid binary; use sudo instead",
             ));
         }
     }

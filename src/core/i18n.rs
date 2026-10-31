@@ -220,7 +220,7 @@ impl MessageCatalog {
         let mut m = HashMap::new();
 
         // General
-        m.insert("app.name".into(), "AgenticBlockTransfer".into());
+        m.insert("app.name".into(), "IronBlockTransfer".into());
         m.insert("app.version".into(), "Version {0}".into());
 
         // Write operation
@@ -302,7 +302,7 @@ impl MessageCatalog {
     fn german_messages() -> HashMap<String, String> {
         let mut m = HashMap::new();
 
-        m.insert("app.name".into(), "AgenticBlockTransfer".into());
+        m.insert("app.name".into(), "IronBlockTransfer".into());
         m.insert("app.version".into(), "Version {0}".into());
 
         m.insert("write.started".into(), "Schreibvorgang gestartet".into());
@@ -388,7 +388,7 @@ impl MessageCatalog {
     fn french_messages() -> HashMap<String, String> {
         let mut m = HashMap::new();
 
-        m.insert("app.name".into(), "AgenticBlockTransfer".into());
+        m.insert("app.name".into(), "IronBlockTransfer".into());
         m.insert("app.version".into(), "Version {0}".into());
 
         m.insert("write.started".into(), "Écriture démarrée".into());
@@ -464,7 +464,7 @@ impl MessageCatalog {
     fn spanish_messages() -> HashMap<String, String> {
         let mut m = HashMap::new();
 
-        m.insert("app.name".into(), "AgenticBlockTransfer".into());
+        m.insert("app.name".into(), "IronBlockTransfer".into());
         m.insert("app.version".into(), "Versión {0}".into());
 
         m.insert("write.started".into(), "Escritura iniciada".into());

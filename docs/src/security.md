@@ -1,6 +1,6 @@
 # Security
 
-`abt` includes a comprehensive security audit module that goes beyond the pre-flight safety system.
+`ibt` includes a comprehensive security audit module that goes beyond the pre-flight safety system.
 
 ## Security Audit Module
 
@@ -47,7 +47,7 @@ The `core::security` module validates all inputs for:
 
 ```bash
 # Via the safety pre-flight system
-abt write -i image.iso -o /dev/sdb --dry-run --safety-level paranoid
+ibt write -i image.iso -o /dev/sdb --dry-run --safety-level paranoid
 ```
 
 The security module is automatically invoked during pre-flight checks at `cautious` and `paranoid` safety levels.

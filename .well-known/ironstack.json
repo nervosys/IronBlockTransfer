@@ -1,7 +1,7 @@
 {
   "ironstack": "1",
-  "id": "abt",
-  "product": "AgenticBlockTransfer",
+  "id": "ibt",
+  "product": "IronBlockTransfer",
   "layer": "tools",
   "role": "Block device imaging: read, write, verify, hash, format. Agentic successor to dd; human successor to balenaEtcher/Rufus/Ventoy.",
   "surfaces": [
@@ -13,7 +13,7 @@
     "json-ld"
   ],
   "ontology": {
-    "command": "abt ontology --format json --full",
+    "command": "ibt ontology --format json --full",
     "document": "src/ontology/mod.rs",
     "schema": 1
   },
@@ -404,7 +404,7 @@
     },
     {
       "name": "mcp",
-      "description": "Start an MCP (Model Context Protocol) server so an agent can drive abt over JSON-RPC. Serves until stopped. Exposes the destructive capabilities in this ontology to whatever connects.",
+      "description": "Start an MCP (Model Context Protocol) server so an agent can drive ibt over JSON-RPC. Serves until stopped. Exposes the destructive capabilities in this ontology to whatever connects.",
       "requires_grant": false,
       "budgeted": false,
       "surfaces": [
@@ -428,7 +428,7 @@
     },
     {
       "name": "ontology",
-      "description": "Export the machine-readable capability ontology as JSON-LD for AI agent discovery and integration. Enables agentic systems to understand and invoke abt operations programmatically.",
+      "description": "Export the machine-readable capability ontology as JSON-LD for AI agent discovery and integration. Enables agentic systems to understand and invoke ibt operations programmatically.",
       "requires_grant": false,
       "budgeted": false,
       "surfaces": [
@@ -524,7 +524,7 @@
     },
     {
       "name": "update",
-      "description": "Check for abt updates and optionally self-update. Replaces the installed abt binary, which may require elevation depending on the install path.",
+      "description": "Check for ibt updates and optionally self-update. Replaces the installed ibt binary, which may require elevation depending on the install path.",
       "requires_grant": true,
       "budgeted": false,
       "surfaces": [
@@ -595,5 +595,5 @@
       ]
     }
   ],
-  "note": "Every capability is derived from abt's own ontology, which declares destructive and requires_elevation per command. requires_grant is true where either holds; 48 of 48 commands are covered, because the ontology now covers all of them. An earlier version of this file recorded 7 capabilities and said so, because that was all the ontology declared -- the other 41 commands, erase and clone and restore among them, existed with no entry. That is fixed in the tool rather than papered over here, and two tests now walk clap's own command list in both directions so it cannot recur: every_subcommand_is_declared and nothing_declared_is_missing_from_the_cli. A third asserts that anything destructive requires elevation, with cache exempted by name because it deletes the caller's own downloaded images and needs no privilege to do so. Budgets are judged, not declared: they mark the commands whose cost scales with the size of the device or image being moved, hashed or verified. The many granted-but-unbudgeted commands are single privileged decisions, where the danger is that one was unauthorised rather than that many were made. The 41 newly declared capabilities carry effect flags and preconditions but not yet full parameter schemas, which the seven original ones do. That is deliberate staging: an agent's first question is whether a command destroys anything, and answering it for every command beats answering everything for a seventh of them."
+  "note": "Every capability is derived from ibt's own ontology, which declares destructive and requires_elevation per command. requires_grant is true where either holds; 48 of 48 commands are covered, because the ontology now covers all of them. An earlier version of this file recorded 7 capabilities and said so, because that was all the ontology declared -- the other 41 commands, erase and clone and restore among them, existed with no entry. That is fixed in the tool rather than papered over here, and two tests now walk clap's own command list in both directions so it cannot recur: every_subcommand_is_declared and nothing_declared_is_missing_from_the_cli. A third asserts that anything destructive requires elevation, with cache exempted by name because it deletes the caller's own downloaded images and needs no privilege to do so. Budgets are judged, not declared: they mark the commands whose cost scales with the size of the device or image being moved, hashed or verified. The many granted-but-unbudgeted commands are single privileged decisions, where the danger is that one was unauthorised rather than that many were made. The 41 newly declared capabilities carry effect flags and preconditions but not yet full parameter schemas, which the seven original ones do. That is deliberate staging: an agent's first question is whether a command destroys anything, and answering it for every command beats answering everything for a seventh of them."
 }

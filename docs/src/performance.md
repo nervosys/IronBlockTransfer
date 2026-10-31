@@ -1,6 +1,6 @@
 # Performance Tuning
 
-`abt` includes several performance optimization features for high-throughput disk imaging.
+`ibt` includes several performance optimization features for high-throughput disk imaging.
 
 ## Block Size
 
@@ -8,10 +8,10 @@ The default block size is 4 MiB. Use `--block-size` or the adaptive auto-tuner:
 
 ```bash
 # Manual block size
-abt write -i image.iso -o /dev/sdb -b 8M
+ibt write -i image.iso -o /dev/sdb -b 8M
 
 # Auto-tune (benchmark-based)
-abt write -i image.iso -o /dev/sdb --auto-block-size
+ibt write -i image.iso -o /dev/sdb --auto-block-size
 ```
 
 ## Direct I/O
@@ -19,7 +19,7 @@ abt write -i image.iso -o /dev/sdb --auto-block-size
 Bypass the OS page cache for large sequential writes:
 
 ```bash
-abt write -i image.iso -o /dev/sdb --direct-io
+ibt write -i image.iso -o /dev/sdb --direct-io
 ```
 
 - Linux: `O_DIRECT` with aligned buffers
@@ -35,24 +35,24 @@ When source and target are both files/devices on the same system:
 
 ## io_uring (Linux)
 
-On Linux kernel 5.1+, `abt` uses `io_uring` for asynchronous I/O with aligned double-buffered pipeline. Graceful fallback on older kernels.
+On Linux kernel 5.1+, `ibt` uses `io_uring` for asynchronous I/O with aligned double-buffered pipeline. Graceful fallback on older kernels.
 
 ## Sparse Writes
 
 Skip all-zero blocks to dramatically speed up partially-empty images:
 
 ```bash
-abt write -i image.raw -o /dev/sdb --sparse
+ibt write -i image.raw -o /dev/sdb --sparse
 ```
 
 ## Benchmarking
 
 ```bash
 # Full I/O benchmark
-abt bench /dev/sdb
+ibt bench /dev/sdb
 
 # Specific block sizes with JSON output
-abt bench /dev/sdb -b 64K -b 1M -b 4M --json
+ibt bench /dev/sdb -b 64K -b 1M -b 4M --json
 ```
 
 ## Parallel Decompression

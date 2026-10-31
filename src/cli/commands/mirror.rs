@@ -1,4 +1,4 @@
-// CLI command: abt mirror — download with mirror selection and failover.
+// CLI command: ibt mirror — download with mirror selection and failover.
 
 use anyhow::Result;
 use log::info;
@@ -130,7 +130,7 @@ async fn list_mirrors(opts: &MirrorOpts) -> Result<()> {
 async fn get_mirror_list(opts: &MirrorOpts) -> Result<mirror::MirrorList> {
     if let Some(ref metalink_url) = opts.metalink {
         let client = reqwest::Client::builder()
-            .user_agent(format!("abt/{}", env!("CARGO_PKG_VERSION")))
+            .user_agent(format!("ibt/{}", env!("CARGO_PKG_VERSION")))
             .timeout(std::time::Duration::from_secs(30))
             .build()?;
 

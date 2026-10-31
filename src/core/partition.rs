@@ -1,6 +1,6 @@
 //! GPT/MBR partition table parsing.
 //!
-//! Provides read-only introspection of partition tables for the `abt info`
+//! Provides read-only introspection of partition tables for the `ibt info`
 //! command and for enhanced safety reporting (show existing partition layout
 //! before overwriting a device).
 //!

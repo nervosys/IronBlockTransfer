@@ -1,6 +1,6 @@
 # ROADMAP
 
-Implementation progress for AgenticBlockTransfer (`abt`).
+Implementation progress for IronBlockTransfer (`ibt`).
 
 Legend: ✅ Done | 🔧 Partial | 🔲 Not started
 
@@ -10,7 +10,7 @@ Legend: ✅ Done | 🔧 Partial | 🔲 Not started
 
 | Component                | Status | Notes                                                                                                                        |
 | ------------------------ | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| Error types (`AbtError`) | ✅      | thiserror-derived, 21 variants (6 new: Timeout, CancelledByUser, BackupFailed, TokenMismatch, RetryExhausted, DeviceChanged) |
+| Error types (`IbtError`) | ✅      | thiserror-derived, 21 variants (6 new: Timeout, CancelledByUser, BackupFailed, TokenMismatch, RetryExhausted, DeviceChanged) |
 | Type definitions         | ✅      | ImageFormat (15), DeviceType (12), Filesystem (10), HashAlgorithm (6)                                                        |
 | Image format detection   | ✅      | Magic byte detection + extension fallback, BufReader-wrapped                                                                 |
 | Decompressing reader     | ✅      | gz, bz2, xz, zstd, zip — streaming with BufReader wrapping                                                                   |
@@ -89,9 +89,9 @@ Legend: ✅ Done | 🔧 Partial | 🔲 Not started
 | Device scope categories  | ✅      | 4 categories with examples                                                  |
 | Exit code semantics      | ✅      | Per-capability exit codes                                                   |
 | JSON output mode         | ✅      | Compact JSON alternative                                                    |
-| YAML output              | ✅      | serde_yaml serialization via `abt ontology -f yaml`                         |
+| YAML output              | ✅      | serde_yaml serialization via `ibt ontology -f yaml`                         |
 | MCP/Tool-use schema      | ✅      | Full MCP server with JSON-RPC 2.0 over stdio, 6 tools                       |
-| OpenAPI-style schema     | ✅      | OpenAPI 3.1 spec with 9 endpoints, 12 schemas via `abt ontology -f openapi` |
+| OpenAPI-style schema     | ✅      | OpenAPI 3.1 spec with 9 endpoints, 12 schemas via `ibt ontology -f openapi` |
 
 ---
 
@@ -118,7 +118,7 @@ Legend: ✅ Done | 🔧 Partial | 🔲 Not started
 | Adaptive block size          | ✅      | Benchmark-based auto-tune with diminishing-returns detection + heuristic fallback |
 | Zero-copy splice/sendfile    | ✅      | splice (Linux), sendfile (macOS/FreeBSD), fallback (Windows)                      |
 | Multi-threaded decompression | ✅      | pigz/pbzip2-style channel-based pipeline, parallel bz2/zstd, read-ahead gz/xz     |
-| Benchmarking suite           | ✅      | `abt bench` — block-size sweep, read/write throughput, IOPS, JSON                 |
+| Benchmarking suite           | ✅      | `ibt bench` — block-size sweep, read/write throughput, IOPS, JSON                 |
 | Sparse write optimization    | ✅      | Skip all-zero blocks via lseek SEEK_CUR                                           |
 | Retry with backoff           | ✅      | 3× retry on transient I/O errors                                                  |
 | BufReader/BufWriter          | ✅      | All file I/O buffered, decompressors wrapped                                      |
@@ -139,8 +139,8 @@ Legend: ✅ Done | 🔧 Partial | 🔲 Not started
 
 | Item                                   | Status | Notes                                                                       |
 | -------------------------------------- | ------ | --------------------------------------------------------------------------- |
-| Shell completions (bash/zsh/fish/pwsh) | ✅      | `abt completions <shell>` via clap_complete                                 |
-| Man page generation                    | ✅      | `abt man` generates roff pages for all commands via clap_mangen             |
+| Shell completions (bash/zsh/fish/pwsh) | ✅      | `ibt completions <shell>` via clap_complete                                 |
+| Man page generation                    | ✅      | `ibt man` generates roff pages for all commands via clap_mangen             |
 | Native file dialog (GUI)               | ✅      | rfd crate — Browse, Open Image, filter by disk image extensions             |
 | Drag-and-drop (GUI)                    | ✅      | eframe egui with hover overlay + extension filtering                        |
 | URL/HTTP download source               | ✅      | Streaming download → decompress → write pipeline                            |
@@ -159,20 +159,20 @@ Legend: ✅ Done | 🔧 Partial | 🔲 Not started
 | Localization / i18n          | ✅      | 12 locales, 4 built-in catalogs (en/de/fr/es), format args, detect_system_locale         |
 | Accessibility                | ✅      | 16 ARIA roles, WCAG 2.1 AA contrast, announcement queue, keyboard-only mode              |
 | Comprehensive documentation  | ✅      | mdbook with 16 chapters: User Guide, Interfaces, AI Integration, Advanced, Development   |
-| MCP server mode              | ✅      | JSON-RPC 2.0 over stdio, 6 tools, `abt mcp` command                                      |
+| MCP server mode              | ✅      | JSON-RPC 2.0 over stdio, 6 tools, `ibt mcp` command                                      |
 
 ## Future / Research
 
 | Item                             | Notes                                                                        |
 | -------------------------------- | ---------------------------------------------------------------------------- |
-| Device cloning (device → device) | ✅ `abt clone` — block-level clone with inline hashing, sparse, verification  |
-| Network block device source      | ✅ `abt` supports nbd:// URLs as image source, NBD protocol client            |
-| Multicast imaging                | ✅ `abt` multicast sender/receiver, CRC32 per-chunk, session ID, NAK recovery |
-| Differential/incremental writes  | ✅ `abt diff` — block-level comparison, skip identical, dry-run, verify       |
-| Secure erase                     | ✅ `abt erase` — 6 methods: auto/zero/random/ATA/NVMe/discard, multi-pass     |
-| Boot sector validation           | ✅ `abt boot` — MBR/GPT/UEFI validation with 7 checks, JSON output            |
-| Raspberry Pi OS catalog          | ✅ `abt catalog` — fetch/search/browse rpi-imager OS catalog                  |
-| Ventoy-style multi-boot          | ✅ `abt multiboot` — registry, GRUB2 config, OS auto-detect, add/remove/list  |
+| Device cloning (device → device) | ✅ `ibt clone` — block-level clone with inline hashing, sparse, verification  |
+| Network block device source      | ✅ `ibt` supports nbd:// URLs as image source, NBD protocol client            |
+| Multicast imaging                | ✅ `ibt` multicast sender/receiver, CRC32 per-chunk, session ID, NAK recovery |
+| Differential/incremental writes  | ✅ `ibt diff` — block-level comparison, skip identical, dry-run, verify       |
+| Secure erase                     | ✅ `ibt erase` — 6 methods: auto/zero/random/ATA/NVMe/discard, multi-pass     |
+| Boot sector validation           | ✅ `ibt boot` — MBR/GPT/UEFI validation with 7 checks, JSON output            |
+| Raspberry Pi OS catalog          | ✅ `ibt catalog` — fetch/search/browse rpi-imager OS catalog                  |
+| Ventoy-style multi-boot          | ✅ `ibt multiboot` — registry, GRUB2 config, OS auto-detect, add/remove/list  |
 
 ## v1.1.0 — Feature Wave 10 (Reference Project Parity)
 
@@ -180,12 +180,12 @@ Inspired by studying 5 reference projects (etcher, rufus, Ventoy, MediaWriter, r
 
 | Feature                   | Status | Notes                                                                                   |
 | ------------------------- | ------ | --------------------------------------------------------------------------------------- |
-| OS Customization          | ✅      | `abt customize` — firstrun.sh / cloud-init / network-config generation, WiFi, SSH keys  |
-| Image Download Cache      | ✅      | `abt cache` — SHA-256 verified local cache, eviction policies, manifest persistence     |
-| Drive Health / Bad Blocks | ✅      | `abt health` — multi-pass destructive bad block check, fake flash detection, read test  |
+| OS Customization          | ✅      | `ibt customize` — firstrun.sh / cloud-init / network-config generation, WiFi, SSH keys  |
+| Image Download Cache      | ✅      | `ibt cache` — SHA-256 verified local cache, eviction policies, manifest persistence     |
+| Drive Health / Bad Blocks | ✅      | `ibt health` — multi-pass destructive bad block check, fake flash detection, read test  |
 | Sleep Inhibitor           | ✅      | RAII guard prevents OS sleep during writes (systemd/caffeinate/SetThreadExecutionState) |
-| Drive Backup              | ✅      | `abt backup` — 5 compression formats, inline SHA-256, sparse zero-skip, progress        |
-| Persistent Storage        | ✅      | `abt persist` — casper/Fedora/Ventoy persistence partitions and image files             |
+| Drive Backup              | ✅      | `ibt backup` — 5 compression formats, inline SHA-256, sparse zero-skip, progress        |
+| Persistent Storage        | ✅      | `ibt persist` — casper/Fedora/Ventoy persistence partitions and image files             |
 
 ## v1.2.0 — Feature Wave 11 (Download Resilience & Hardware Awareness)
 
@@ -194,10 +194,10 @@ Gap analysis from reference projects (rufus, etcher, MediaWriter, rpi-imager, Ve
 | Feature                     | Status | Notes                                                                         |
 | --------------------------- | ------ | ----------------------------------------------------------------------------- |
 | Resumable Downloads         | ✅      | HTTP Range resume with .part/.meta.json files, ETag/Last-Modified validation  |
-| Mirror Selection & Failover | ✅      | `abt mirror` — latency probing, failover, metalink (RFC 5854) parsing         |
-| Self-Update Checker         | ✅      | `abt update` — GitHub Releases API, semver compare, platform asset detection  |
-| Checksum File Parsing       | ✅      | `abt checksum-file` — SHA256SUMS/SHA512SUMS auto-detect (GNU/BSD/simple formats) |
-| USB Speed Detection         | ✅      | `abt usb-info` — USB speed enum, degraded warnings, write-time estimates      |
+| Mirror Selection & Failover | ✅      | `ibt mirror` — latency probing, failover, metalink (RFC 5854) parsing         |
+| Self-Update Checker         | ✅      | `ibt update` — GitHub Releases API, semver compare, platform asset detection  |
+| Checksum File Parsing       | ✅      | `ibt checksum-file` — SHA256SUMS/SHA512SUMS auto-detect (GNU/BSD/simple formats) |
+| USB Speed Detection         | ✅      | `ibt usb-info` — USB speed enum, degraded warnings, write-time estimates      |
 | Large FAT32 Formatter       | ✅      | FAT32 formatting for drives >32 GB with custom cluster sizes (up to 2 TiB)    |
 
 ## v1.3.0 — Feature Wave 12 (Security, Windows Automation & Fleet Management)
@@ -208,10 +208,10 @@ Gap analysis from reference projects (rufus, etcher, MediaWriter, rpi-imager, Ve
 | ------------------------------- | ------ | ----------------------------------------------------------------------------------------- |
 | Proxy Configuration             | ✅      | HTTP/HTTPS/SOCKS5 auto-detection, no-proxy lists, fetch profiles (Interactive/Background) |
 | Signature Verification          | ✅      | RSA SHA-256 with PEM keyring, detached .sig/.asc, download-and-verify workflow            |
-| Windows Unattended Setup (WUE)  | ✅      | `abt wue` — autounattend.xml generator, TPM/SecureBoot/RAM bypasses, OOBE, accounts       |
+| Windows Unattended Setup (WUE)  | ✅      | `ibt wue` — autounattend.xml generator, TPM/SecureBoot/RAM bypasses, OOBE, accounts       |
 | Generic OS Catalog              | ✅      | Provider registry with hardware tags, cache persistence, rpi-imager JSON conversion       |
 | UEFI:NTFS Dual-Partition Layout | ✅      | FAT32 file-size analysis, ESP+NTFS layout planner, Windows To Go support                  |
-| Fleet (Multi-Target) Writing    | ✅      | `abt fleet` — concurrent device sessions, progress snapshots, cancellation, USB detect    |
+| Fleet (Multi-Target) Writing    | ✅      | `ibt fleet` — concurrent device sessions, progress snapshots, cancellation, USB detect    |
 
 
 
@@ -264,7 +264,7 @@ NIST FIPS, CMMC 2.0 Level 2, and DoD compliance hardening; formal verification o
 | FIPS Device Fingerprinting     | ✅      | SHA-256 replaces CRC32 for device tokens in FIPS mode (FIPS 180-4)                        |
 | TLS Hardening                  | ✅      | TLS 1.2 minimum, HTTPS-only URL validation in FIPS mode (SP 800-52 Rev 2)                 |
 | FIPS Algorithm Gate            | ✅      | Hash algorithm validation rejects CRC32 in FIPS mode; MD5, SHA-1, and BLAKE3 are removed (SP 800-131A)             |
-| Compliance Self-Assessment     | ✅      | `abt compliance` command — FIPS/CMMC/DoD checklist with JSON output for auditors          |
+| Compliance Self-Assessment     | ✅      | `ibt compliance` command — FIPS/CMMC/DoD checklist with JSON output for auditors          |
 | Formal Verification            | ✅      | 10 Safety Invariants (SI-1 – SI-10), Kani proof harnesses, compile-time static assertions |
 | Property-Based Testing         | ✅      | 24 proptest harnesses covering safety, hashing, progress, and device enumeration          |
 | Unsafe Audit                   | ✅      | All 17 `unsafe` blocks documented with `// SAFETY:` comments per Rust API Guidelines      |

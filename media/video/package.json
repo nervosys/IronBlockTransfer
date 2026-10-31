@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "preview": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts AbtVideo out/abt-video.mp4",
-    "still": "remotion still src/index.ts AbtVideo out/abt-thumbnail.png --frame=30"
+    "render": "remotion render src/index.ts IbtVideo out/ibt-video.mp4",
+    "still": "remotion still src/index.ts IbtVideo out/ibt-thumbnail.png --frame=30"
   },
   "keywords": [],
   "author": "",

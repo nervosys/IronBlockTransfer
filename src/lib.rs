@@ -1,4 +1,4 @@
-// AgenticBlockTransfer (abt) — Cross-platform agentic block transfer
+// IronBlockTransfer (ibt) — Cross-platform agentic block transfer
 // Copyright (c) nervosys. Licensed under MIT OR Apache-2.0.
 
 pub mod cli;

@@ -264,7 +264,7 @@ impl Theme {
 
 // ─── App ───────────────────────────────────────────────────────────────────
 
-struct AbtApp {
+struct IbtApp {
     state: GuiState,
     devices: Vec<DeviceInfo>,
     selected_device: Option<usize>,
@@ -292,7 +292,7 @@ enum GuiState {
     Error(String),
 }
 
-impl Default for AbtApp {
+impl Default for IbtApp {
     fn default() -> Self {
         let rt = tokio::runtime::Handle::try_current().ok();
         let preset = ThemePreset::Cyberpunk;
@@ -314,7 +314,7 @@ impl Default for AbtApp {
     }
 }
 
-impl eframe::App for AbtApp {
+impl eframe::App for IbtApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         // Apply theme on first frame and whenever it changes
         if self.first_frame {
@@ -391,13 +391,13 @@ impl eframe::App for AbtApp {
                     ui.add_space(2.0);
                     ui.label(egui::RichText::new("◆").color(self.theme.accent).size(18.0));
                     ui.label(
-                        egui::RichText::new("ABT")
+                        egui::RichText::new("IBT")
                             .color(self.theme.accent)
                             .size(16.0)
                             .strong(),
                     );
                     ui.label(
-                        egui::RichText::new("AgenticBlockTransfer")
+                        egui::RichText::new("IronBlockTransfer")
                             .color(self.theme.text_muted)
                             .size(12.0),
                     );
@@ -570,7 +570,7 @@ fn section_heading(ui: &mut egui::Ui, theme: &Theme, icon: &str, label: &str) {
 
 // ─── Rendering ─────────────────────────────────────────────────────────────
 
-impl AbtApp {
+impl IbtApp {
     fn render_main_form(&mut self, ui: &mut egui::Ui, _ctx: &egui::Context) {
         // ── Step 1: Source image ────────────────────────────────────────────
         card_frame(&self.theme, !self.source_path.is_empty()).show(ui, |ui| {
@@ -1274,17 +1274,17 @@ pub fn run() -> Result<()> {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([760.0, 620.0])
             .with_min_inner_size([560.0, 480.0])
-            .with_title("ABT — AgenticBlockTransfer")
+            .with_title("IBT — IronBlockTransfer")
             .with_drag_and_drop(true),
         ..Default::default()
     };
 
     eframe::run_native(
-        "ABT — AgenticBlockTransfer",
+        "IBT — IronBlockTransfer",
         options,
         Box::new(|cc| {
             configure_fonts(&cc.egui_ctx);
-            Ok(Box::new(AbtApp::default()))
+            Ok(Box::new(IbtApp::default()))
         }),
     )
     .map_err(|e| anyhow::anyhow!("GUI error: {}", e))

@@ -128,7 +128,7 @@ async fn format_macos(
         _ => anyhow::bail!("Filesystem {:?} not supported on macOS", filesystem),
     };
 
-    let vol_label = label.unwrap_or("ABT");
+    let vol_label = label.unwrap_or("IBT");
     let output = tokio::process::Command::new("diskutil")
         .args(["eraseDisk", fs_name, vol_label, device_path])
         .output()
@@ -158,7 +158,7 @@ async fn format_windows(
         ),
     };
 
-    let vol_label = label.unwrap_or("ABT");
+    let vol_label = label.unwrap_or("IBT");
     let mut args = vec![
         "format".to_string(),
         device_path.to_string(),

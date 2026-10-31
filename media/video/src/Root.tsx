@@ -1,12 +1,12 @@
 import { Composition } from "remotion";
-import { AbtVideo } from "./AbtVideo";
+import { IbtVideo } from "./IbtVideo";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="AbtVideo"
-        component={AbtVideo}
+        id="IbtVideo"
+        component={IbtVideo}
         durationInFrames={900}
         fps={30}
         width={1920}

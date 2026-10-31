@@ -3,7 +3,7 @@
 //!
 //! Implements the NBD protocol (RFC draft / nbd.git spec) for use as an image
 //! source in write operations. Enables scenarios like:
-//!   `abt write -i nbd://192.168.1.10:10809/export -o /dev/sdb`
+//!   `ibt write -i nbd://192.168.1.10:10809/export -o /dev/sdb`
 //!
 //! Protocol reference: https://github.com/NetworkBlockDevice/nbd/blob/master/doc/proto.md
 //! Supports:

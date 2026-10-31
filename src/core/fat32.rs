@@ -28,7 +28,7 @@ const FAT32_FSINFO_SIGNATURE_2: u32 = 0x61417272;
 const FAT32_FSINFO_SIGNATURE_3: u32 = 0xAA550000;
 const FAT_MEDIA_FIXED: u8 = 0xF8;
 const FAT_MEDIA_REMOVABLE: u8 = 0xF0;
-const BS_OEM_NAME: &[u8; 8] = b"ABT     ";
+const BS_OEM_NAME: &[u8; 8] = b"IBT     ";
 
 /// Maximum FAT32 size (2 TiB with 64K clusters).
 pub const MAX_FAT32_SIZE: u64 = 2 * 1024 * 1024 * 1024 * 1024; // 2 TiB

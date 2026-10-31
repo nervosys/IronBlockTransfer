@@ -26,7 +26,7 @@ pub fn send_notification(kind: NotifyKind, title: &str, body: &str) {
     info!("Notification [{}]: {} — {}", kind_label(kind), title, body);
 
     let result = notify_rust::Notification::new()
-        .appname("AgenticBlockTransfer")
+        .appname("IronBlockTransfer")
         .summary(title)
         .body(body)
         .icon(icon_for_kind(kind))

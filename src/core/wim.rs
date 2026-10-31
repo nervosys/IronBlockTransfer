@@ -6,8 +6,8 @@
 // WIM files are *archive* formats (like tar) containing one or more OS images
 // with file-level deduplication. Unlike QCOW2/VHD/VMDK, WIM is NOT a block-level
 // format — it cannot be written sector-by-sector to produce a bootable disk.
-// However, abt needs to:
-//   1. Detect WIM files and show metadata (`abt info`)
+// However, ibt needs to:
+//   1. Detect WIM files and show metadata (`ibt info`)
 //   2. In the future, support extraction-based writing (like Rufus does with
 //      install.wim → FAT32 USB)
 //

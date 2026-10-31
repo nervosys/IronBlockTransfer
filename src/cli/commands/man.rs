@@ -1,8 +1,8 @@
 // Man page generation — produces roff-format man pages from clap definitions.
 //
 // Usage:
-//   abt man --output-dir /usr/local/share/man/man1/
-//   abt man   # writes to current directory
+//   ibt man --output-dir /usr/local/share/man/man1/
+//   ibt man   # writes to current directory
 
 use std::fs;
 use std::path::Path;
@@ -27,7 +27,7 @@ pub fn execute(opts: ManOpts) -> Result<()> {
     let man = clap_mangen::Man::new(cmd.clone());
     let mut buf = Vec::new();
     man.render(&mut buf)?;
-    let main_path = output_dir.join("abt.1");
+    let main_path = output_dir.join("ibt.1");
     fs::write(&main_path, &buf)
         .with_context(|| format!("Failed to write {}", main_path.display()))?;
     log::info!("Generated {}", main_path.display());
@@ -40,7 +40,7 @@ pub fn execute(opts: ManOpts) -> Result<()> {
         let man = clap_mangen::Man::new(sub_cmd);
         let mut buf = Vec::new();
         man.render(&mut buf)?;
-        let sub_path = output_dir.join(format!("abt-{}.1", name));
+        let sub_path = output_dir.join(format!("ibt-{}.1", name));
         fs::write(&sub_path, &buf)
             .with_context(|| format!("Failed to write {}", sub_path.display()))?;
         log::info!("Generated {}", sub_path.display());
